@@ -14,6 +14,7 @@ const signToken = id => {
 }
 
 const createSendToken = (user,statusCode,res) => {
+    
     const token = signToken(user._id);
 //   const cookieOptions = {
 //     Expires: new Date(
@@ -37,6 +38,48 @@ const createSendToken = (user,statusCode,res) => {
   });
 };
 
+exports.sendActivationEmail = catchAsync(async(req,res,next) => {
+    const newUser = await User.findOne({email:req.body.email});
+    if(!newUser)
+        return next(new AppError('User not found, Incorrect Email',400))
+    const activateToken = newUser.createActivationToken();
+    await newUser.save({validateBeforeSave: false}); //we modified the doc but didnt update it in DB SO we save it
+
+    //3 send it to users email
+    const activateURL = `${req.protocol}://${req.get('host')}/api/v1/users/activate/${activateToken}` // protocol https or http,
+    const message = `Congratulations, we have revised your data and it appears to be genuine. Please click on this link ${activateURL} to activate your account`
+    try{
+    await sendEmail({
+        email:newUser.email,
+        subject: 'Aman Account Activation',
+        message
+    })
+    res.status(200).json({
+        status: 'success',
+        message: 'Token sent to email'
+    })}
+    //cannot send here the token or anyone can get it 
+    catch(err) {
+        newUser.activateToken = undefined
+        await newUser.save({validateBeforeSave: false});
+        console.log(err)
+        return  next(new AppError('Error sending email, try again later',500));
+    }
+})
+
+exports.activateAccount = catchAsync(async(req,res,next)=> {
+    const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    const user = await User.findOne({activationToken: hashedToken})
+    //2 set new password if user and token not expired
+    if(!user)
+        return next(new AppError('Invalid Token',400));
+    //const token =signToken(user._id);
+    //Log in the user, send JWT
+    user.active = true;
+    await user.save({validateBeforeSave: false});
+    createSendToken(user,200,res)
+})
+
 
 exports.signup = async(req,res) => {
     try{
@@ -48,7 +91,11 @@ exports.signup = async(req,res) => {
                                        commercialSub: req.body.commercialSub,
                                        commercialNum: req.body.commercialNum
                                     });
-    createSendToken(newUser,201,res)
+   // createSendToken(newUser,201,res)
+   res.status(200).json({
+    status: 'success',
+    message:'We will check your data and reply as soon as possible with an email to the one provided'
+   })
     }
     catch(err) {
         res.status(400).json({
@@ -58,23 +105,19 @@ exports.signup = async(req,res) => {
     }
 }
 
-exports.login = async(req,res) => {
-    try{
+exports.login = catchAsync(async(req,res,next) => {
         const user = await User.findOne({email:req.body.email}).select("+password");
         if(!user) 
-            throw new Error();
+            return next(new AppError('Invalid Email or Password',400))
         if(!await user.correctPassword(req.body.password,user.password))
-             throw new Error();
+             return next(new AppError('Invalid Email or Password',400))
+      
+        if(user.active === false)
+        return next(new AppError('User not Activated yet, please wait and we will revise your data and respond as soon as possible',400))
          createSendToken(user,200,res)
 
-    }
-    catch(err) {
-        res.status(400).json({
-             status:'fail',
-            message: "AInvalid Email or Password",
-        })
-    }
-}
+    
+})
 
 exports.forgotPassword = catchAsync(async(req,res,next) => {
    //1 get user based on email

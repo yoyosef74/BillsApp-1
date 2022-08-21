@@ -46,11 +46,11 @@ const userSchema = new mongoose.Schema({
     },
     active: {
         type: Boolean,
-        default:false,
-        select:false
+        default:false
     },
     passwordResetToken: String,
-    passwordResetExpires: Date
+    passwordResetExpires: Date,
+    activationToken: String
 })
 
 //middlewares
@@ -74,6 +74,11 @@ userSchema.methods.createPasswordResetToken = function() {
     this.passwordResetToken =  crypto.createHash('sha256').update(resetToken).digest('hex');
     this.passwordResetExpires = Date.now() +10*60*1000;
     return resetToken;
+}
+userSchema.methods.createActivationToken = function() {
+    const activateToken = crypto.randomBytes(32).toString('hex');
+    this.activationToken =  crypto.createHash('sha256').update(activateToken).digest('hex');
+    return activateToken;
 }
 
 userSchema.methods.changePasswordAfter = function(JWTTimestamp) {
