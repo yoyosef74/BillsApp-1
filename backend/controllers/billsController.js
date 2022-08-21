@@ -1,4 +1,6 @@
 const Bill = require("./../models/billsModel");
+const multer = require("multer");
+const XLSX = require("xlsx");
 
 exports.getAllBills = async (req, res) => {
   try {
@@ -69,9 +71,6 @@ exports.downloadBill = async (req, res) => {
   }
 };
 
-/*
-//test upload XLS
-const multer = require('multer');
 exports.uploadXLSX = async (req, res, next) => {
   try {
     let path = req.file.path;
@@ -83,28 +82,28 @@ exports.uploadXLSX = async (req, res, next) => {
     if (jsonData.length === 0) {
       return res.status(400).json({
         success: false,
-        message: 'xml sheet has no data'
+        message: "xml sheet has no data",
       });
     }
-    let savedData = await Bill.create(jsonData);
+    let savedData = await Bill.create(jsonData, { validateBeforeSave: false });
 
+    console.log(savedData);
     return res.status(201).json({
       success: true,
-      message: savedData.length + ' rows added to the database'
+      message: savedData.length + " rows added to the database",
     });
   } catch (err) {
     return res.status(500).json({ success: false, message: err.message });
   }
 };
 
-exports.storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'uploads');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
   },
-  filename: function(req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
-
 exports.upload = multer({ storage: storage });
-*/
+// app.post("/upload", upload.single("xlsx"), uploadXLSX);
