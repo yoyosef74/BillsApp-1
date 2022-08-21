@@ -6,6 +6,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const globalErrorHandler = require('./controllers/errorController')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -59,11 +60,13 @@ const Bill = require("./models/billsModel");
 // const upload = multer({ storage: storage });
 // app.post("/upload", upload.single("xlsx"), uploadXLSX);
 
-app.all("*", (req, res, next) => {
-  res.status(404).json({
-    status: "fail",
-    message: `Cant find this URL on this server`,
-  });
-});
+
+
+app.all('*',(req,res,next)=>{
+    
+    next(new AppError(`Cant find ${req.params.originalUrl} on this server`,404));
+})
+
+app.use(globalErrorHandler)
 
 module.exports = app;
