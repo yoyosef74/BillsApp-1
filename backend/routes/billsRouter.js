@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const billController = require("./../controllers/billController");
+const billController = require("./../controllers/billsController");
 
 //app.post('/upload', upload.single('xlsx'), uploadXLSX);
 
