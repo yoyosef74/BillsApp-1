@@ -79,7 +79,8 @@ exports.downloadXLSX = async (req, res) => {
     temp = JSON.parse(temp);
     var ws = XLSX.utils.json_to_sheet([temp]);
 
-    var down = __dirname + `/../public/${temp.BILL_NUMBER}.xlsx`;
+    var down =
+      process.env.USERPROFILE + "/Downloads/" + `${temp.BILL_NUMBER}.xlsx`;
     XLSX.utils.book_append_sheet(wb, ws, "sheet1");
     XLSX.writeFile(wb, down);
     res.download(down);
