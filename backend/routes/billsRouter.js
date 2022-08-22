@@ -12,7 +12,7 @@ router
 
 router
   .route("/:id")
-  .get(billController.downloadBill)
+  .post(billController.downloadXLSX)
   .delete(billController.deleteBill);
 //router.post("/upload", upload.single("xlsx"), uploadXLSX);
 module.exports = router;

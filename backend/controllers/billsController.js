@@ -21,7 +21,7 @@ exports.getAllBills = async (req, res) => {
   }
 };
 
-exports.uploadBill = async (req, res) => {
+exports.sendBill = async (req, res) => {
   try {
     const newBill = await Bill.create(req.body);
     res.status(201).json({
@@ -54,9 +54,35 @@ exports.deleteBill = async (req, res) => {
   }
 };
 
-exports.downloadBill = async (req, res) => {
+exports.getBill = async (req, res) => {
   try {
     const bill = await Bill.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        bill: bill,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.downloadXLSX = async (req, res) => {
+  try {
+    var wb = XLSX.utils.book_new(); //new workbook
+    const bill = await Bill.findById(req.params.id).select("-_id -__v");
+    var temp = JSON.stringify(bill);
+    temp = JSON.parse(temp);
+    var ws = XLSX.utils.json_to_sheet([temp]);
+
+    var down = __dirname + `/../public/${temp.BILL_NUMBER}.xlsx`;
+    XLSX.utils.book_append_sheet(wb, ws, "sheet1");
+    XLSX.writeFile(wb, down);
+    res.download(down);
     res.status(200).json({
       status: "success",
       data: {
@@ -106,4 +132,5 @@ var storage = multer.diskStorage({
   },
 });
 exports.upload = multer({ storage: storage });
+
 // app.post("/upload", upload.single("xlsx"), uploadXLSX);
