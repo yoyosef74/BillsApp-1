@@ -8,8 +8,8 @@ router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 router.post('/admin/sendActivationEmail',sendActivationEmail);
 router.post('/activate/:token', activateAccount)
-router.use(protect);
-router.patch('/updatePassword',updatePassword)
+
+router.patch('/updatePassword',protect,updatePassword)
 
 
 module.exports = router;

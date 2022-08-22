@@ -44,6 +44,16 @@ const userSchema = new mongoose.Schema({
             message:'Passwords do not match'
         }
     },
+    billsCycle: {
+        type:String,
+        enum:['monthly','weekly','quarterly'],
+        default: 'monthly'  
+    },
+    reportsCycle : {
+        type:String,
+        enum:['monthly','weekly','quarterly'],
+        default: 'monthly'  
+    },
     active: {
         type: Boolean,
         default:false

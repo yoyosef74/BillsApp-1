@@ -76,34 +76,50 @@ exports.activateAccount = catchAsync(async(req,res,next)=> {
     //const token =signToken(user._id);
     //Log in the user, send JWT
     user.active = true;
+    //TODO send to the API of AMAN the new USER
     await user.save({validateBeforeSave: false});
     createSendToken(user,200,res)
 })
-
-
-exports.signup = async(req,res) => {
-    try{
+exports.sendReminder = catchAsync(async(req,res,next)=>{
+    const message= 'This is a kindly reminder to upload your bills to our Web application '
+     try{
+    await sendEmail({
+        email:req.body.email,//check if this sends to more than one email
+        subject: 'Reminder',
+        message
+    })
+    res.status(200).json({
+        status: 'success',
+        message: 'Sent to email'
+    })}
+    catch(err) {
+        return  next(new AppError('Error sending email, try again later',500));
+    }
+})
+exports.signup = catchAsync(async(req,res) => {
     const newUser = await User.create({name: req.body.name,
                                        email:req.body.email,
                                        password: req.body.password,
                                        passwordConfirm: req.body.passwordConfirm,
                                        passwordChangedAt: req.body.passwordChangedAt,
                                        commercialSub: req.body.commercialSub,
-                                       commercialNum: req.body.commercialNum
+                                       commercialNum: req.body.commercialNum,
+                                       billsCycle: req.body.billsCycle,
+                                       reportsCycle: req.body.remindersCycle
                                     });
-   // createSendToken(newUser,201,res)
-   res.status(200).json({
-    status: 'success',
-    message:'We will check your data and reply as soon as possible with an email to the one provided'
-   })
-    }
-    catch(err) {
-        res.status(400).json({
-            status:'fail',
-            message: "An error has occured while creatin your account"
-        })
-    }
-}
+   createSendToken(newUser,201,res)
+//    res.status(200).json({
+//     status: 'success',
+//     message:'We will check your data and reply as soon as possible with an email to the one provided'
+//    })
+    // }
+    // catch(err) {
+    //     res.status(400).json({
+    //         status:'fail',
+    //         message: "An error has occured while creatin your account"
+    //     })
+    
+})
 
 exports.login = catchAsync(async(req,res,next) => {
         const user = await User.findOne({email:req.body.email}).select("+password");
@@ -129,7 +145,7 @@ exports.forgotPassword = catchAsync(async(req,res,next) => {
     await user.save({validateBeforeSave: false}); //we modified the doc but didnt update it in DB SO we save it
 
     //3 send it to users email
-    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}` // protocol https or http,
+    const resetURL = `${req.protocol}://localhost:3000/resetPassword/${resetToken}` // protocol https or http,
     const message = `Forgot Password, submit a patch request with ur new password and passwordConfirm to ${resetURL}. If this is not you, you can ignore this safely`
     try{
     await sendEmail({
@@ -156,7 +172,8 @@ exports.resetPassword = catchAsync(async(req,res,next) => {
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     const user = await User.findOne({passwordResetToken: hashedToken, 
         passwordResetExpires :{$gt: Date.now()}
-    })
+    });
+    console.log('Here!!@')
     //2 set new password if user and token not expired
     if(!user)
         return next(new AppError('Invalid Token',400));
@@ -165,7 +182,7 @@ exports.resetPassword = catchAsync(async(req,res,next) => {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();
-    const token =signToken(user._id);
+    // const token =signToken(user._id);
     //Log in the user, send JWT
    createSendToken(user,200,res)
     //3 update the changedPasswordAt property , in model using middleware

@@ -1,0 +1,113 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.title
+{
+    font-size: 48px;
+    color: black;
+}
+
+.left-side
+{
+    height: 100vh;
+    width: 100%;
+    background-image: url(./screens/imgs/IMG_6592.JPG);
+    background-size: cover;
+    background-size: 100% 100%;
+    
+}
+.right-side
+{
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+.content
+{
+    position: absolute;
+    top: 52%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 610px;
+    padding: 1px 1px 18px 1px ;
+    box-shadow: 10px 10px 60px rgb(216, 215, 215);
+    border-radius: 25px;
+}
+
+.form-control
+{
+    display: block;
+    width: 100%;
+    border-color: #222;
+    color: #222;
+}
+.form-select
+{
+    border: 1px solid black;
+    width: 240px;
+}
+
+.logo img
+{
+    position: absolute;
+    height: 13%;
+    top: 2.5%;
+    left: 39%;
+    border-radius: 5%;
+}
+
+.logo2 img
+{
+    height: 22%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+body
+{
+    font-family: "Open Sans";
+}
+
+.form-container1
+{
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 410px;
+    padding: 40px 30px;
+    box-shadow: 10px 10px 60px rgb(216, 215, 215);
+    border-radius: 12px;
+}
+
+.control input
+{
+    display: block;
+    color: #222;
+    border-color: #222;
+}
+
+.form-container
+{
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 460px;
+    padding: 45px 30px;
+    box-shadow: 10px 10px 60px rgb(216, 215, 215);
+    border-radius: 12px;
+}
+
+h1
+{
+    font-size: 37px;
+}
+p
+{
+    padding-left: 5px;
+}
