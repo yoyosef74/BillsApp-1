@@ -190,15 +190,15 @@ input[type="file"] {
     display: none;
 }
 
-label {
-    color: white;
-    font-size: 25px;
-    height: 63px;
-    width: 270px;
-    background-color: #f5af09;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.Upload label {
+  color: white;
+  font-size: 25px;
+  height: 63px;
+  width: 270px;
+  background-color:#f5af09 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
