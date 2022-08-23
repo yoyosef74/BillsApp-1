@@ -53,8 +53,7 @@ const HomeScreen = () => {
                         Upload file here
                         <i className="fa fa-upload ms-3"></i>
                     </label>
-                    <button  className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}
-                     onClick={onFileUpload}> 
+                    <button  className='m-auto text-center' variant="success" onClick={onFileUpload}> 
                      Upload! 
                    </button> 
                 </div>
