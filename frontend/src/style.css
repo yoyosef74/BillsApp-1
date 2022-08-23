@@ -201,6 +201,16 @@ input[type="file"] {
   align-items: center;
 }
 
+.Upload button {
+  position: absolute;
+  top: 115%;
+  left: 37%;
+  border-radius: 50px;
+  color: black;
+  background-color:#f5af09;
+  border: none;
+}
+
 @media (min-width: 768px) {
     #sidebar-wrapper {
         margin-left: 0;
