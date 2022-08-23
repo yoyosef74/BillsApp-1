@@ -31,10 +31,6 @@ const HomeScreen = () => {
 
                 <div className="list-group list-group-flush my-3">
 
-                    {/* <button className="btn btn-info px-2 mx-3 py-2 my-3 mt-4 fs-5">
-                        Request Report
-                    </button> */}
-
                     <a href="#" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
