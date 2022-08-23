@@ -100,6 +100,7 @@ exports.downloadXLSX = async (req, res) => {
 
 exports.uploadXLSX = async (req, res, next) => {
   try {
+    console.log(1)
     let path = req.file.path;
     var workbook = XLSX.readFile(path);
     var sheet_name_list = workbook.SheetNames;
