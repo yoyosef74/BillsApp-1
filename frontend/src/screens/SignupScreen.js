@@ -43,11 +43,11 @@ const SignupScreen = () => {
              config);
         const {token} = data;
         console.log(data)
-        navigate(`/HomeScreen/${data.data.user._id}/${token}`);
+        navigate(`/Waiting/${data.data.user._id}/${token}`);
      }
         catch(err) {
             console.log(err)
-            setError(err.message)
+            setError(err.response.data.message)
         }
     }
   return (
@@ -133,6 +133,9 @@ const SignupScreen = () => {
                                     <div className="col-sm-12 mt-4 text-center">
                                         <button className="btn btn-primary rounded-pill px-5">Sign up</button>
                                     </div>
+                                    <div className="control text-center mt-4">
+                                    <a href='/login' className="px-5 ">Already have an account?</a>
+                                </div>
                                     <div className="control text-center mt-4">
                                    {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error}</label>:<label></label>}
                                 </div>     

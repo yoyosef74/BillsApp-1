@@ -21,7 +21,10 @@ const LoginScreen = () => {
         const {data} = await axios.post(url, { email, 'password': password}, config);
         const {token} = data;
         console.log(data)
-        navigate(`/HomeScreen/${data.data.user._id}/${token}`);
+        if(data.data.user.active)
+         navigate(`/HomeScreen/${data.data.user._id}/${token}`);
+        else
+        navigate(`/Waiting/${data.data.user._id}/${token}`);
      }
         catch(err) {
             console.log(err)
@@ -68,6 +71,11 @@ const LoginScreen = () => {
                                 <div className="control text-center mt-4">
                                     <button className="btn btn-primary rounded-pill px-5 ">Login</button>
                                 </div>
+
+                                 <div className="control text-center mt-4">
+                                    <a href='/signup' className="px-5 ">Don't have an account?</a>
+                                </div>
+
                                 <div className="control text-center mt-4">
                                    {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Invalid Credentials! </label>:<label></label>}
                                 </div>                           

@@ -225,3 +225,13 @@ input[type="file"] {
         margin-left: -15rem;
     }
 }
+
+.waiting {
+    height: 100vh;
+   
+}
+
+.waitingText {
+    font-size: xx-large;
+    margin-top: 10%;
+}

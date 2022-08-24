@@ -9,15 +9,24 @@ const HomeScreen = () => {
   const onFileChange = event => {
     setXlsx(event.target.files[0])
   }
-  const onFileUpload = () => {
+  const onFileUpload = async() => {
     try{
+    //      const config = {
+    //      headers: {
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //     'Authorization': `JWT ${token}`
+    //   },
+    // }
+    
     const formData = new FormData();
     formData.append("xlsx",xlsx,xlsx.name);
     console.log('here')
-    axios.post("http://localhost:8000/api/v1/bills", formData);
+    await axios.post("http://localhost:8000/api/v1/bills", formData);
+    setMessage('Uploaded Successfuly')
   }
   catch(err){
     console.log(err)
+    setError('Error occured while uploading your file, please check the given format!')
   }
 }
   
@@ -39,7 +48,7 @@ const HomeScreen = () => {
                         <i className="fa fa-file me-2"></i> Reports
                     </a>
 
-                    <a href="#" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>
@@ -49,15 +58,20 @@ const HomeScreen = () => {
 
                 <div className="Upload">
                     <input type="file" name="xlsx" id="file" onChange={onFileChange} />
-                    <label for="file" className="rounded-pill">
-                        Upload file here
-                        <i className="fa fa-upload ms-3"></i>
-                    </label>
-                    <button  className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}
-                     onClick={onFileUpload}> 
-                     Upload! 
-                   </button> 
+                   
+                        {xlsx? <label for="file" className="rounded-pill">{xlsx.name} <i className="fa fa-upload ms-3"></i> </label> 
+                        : <label for="file" className="rounded-pill">Choose file here <i className="fa fa-upload ms-3"></i> </label> }
+                    {
+                                    error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large',background:'transparent'}}>{error}</label>:
+                                    message?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large',background:'transparent'}}>{message}</label>:
+                                    <button  className='m-auto text-center' variant="success" style={{fontSize:'x-large', background:'#3e2'}}
+                                        onClick={onFileUpload}> 
+                                        Upload! 
+                                    </button> 
+                               
+                    }
                 </div>
+                
 
                 <nav className="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div className="d-flex align-items-center">

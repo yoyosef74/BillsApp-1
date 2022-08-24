@@ -100,7 +100,7 @@ exports.downloadXLSX = async (req, res) => {
 
 exports.uploadXLSX = async (req, res, next) => {
   try {
-    console.log(1)
+    //console.log(req)
     let path = req.file.path;
     var workbook = XLSX.readFile(path);
     var sheet_name_list = workbook.SheetNames;
@@ -115,13 +115,13 @@ exports.uploadXLSX = async (req, res, next) => {
     }
     let savedData = await Bill.create(jsonData, { validateBeforeSave: false });
 
-    console.log(savedData);
+    //console.log(savedData);
     return res.status(201).json({
       success: true,
       message: savedData.length + " rows added to the database",
     });
   } catch (err) {
-    return res.status(500).json({ success: false, message: err.message });
+    return res.status(400).json({ status:'error', success: false, message: err.message });
   }
 };
 

@@ -128,8 +128,8 @@ exports.login = catchAsync(async(req,res,next) => {
         if(!await user.correctPassword(req.body.password,user.password))
              return next(new AppError('Invalid Email or Password',400))
       
-        if(user.active === false)
-        return next(new AppError('User not Activated yet, please wait and we will revise your data and respond as soon as possible',400))
+        // if(user.active === false)
+        // return next(new AppError('User not Activated yet, please wait and we will revise your data and respond as soon as possible',400))
          createSendToken(user,200,res)
 
     
