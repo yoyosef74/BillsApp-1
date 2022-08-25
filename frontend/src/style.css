@@ -225,3 +225,23 @@ input[type="file"] {
         margin-left: -15rem;
     }
 }
+
+@media screen  and (max-width:756px)
+{
+  .Upload
+  {
+    position: absolute;
+    left: 29%;
+  }
+  .Upload label
+  {
+    color: white;
+    font-size: 20px;
+    height: 50px;
+    width: 230px;
+    background-color:#f5af09 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
