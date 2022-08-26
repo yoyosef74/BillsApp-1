@@ -245,11 +245,65 @@ input[type="file"] {
     align-items: center;
   }
 }
+
 @media screen and (max-width:560px) 
 {
     .form-container
     {
         position: absolute;
         left: 51%;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1120px)
+{
+    .content
+    {
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        width: 550px;
+    }
+    .row input
+    {
+        width: 225px;
+    }
+    .form-select
+    {
+        border: 1px solid black;
+        width: 225px;
+    }
+}
+
+@media screen and (max-width: 850px)
+{
+    .content
+    {
+        position: absolute;
+        left: 51%;
+    }   
+}
+
+@media screen and (max-width: 768px)
+{   
+    .content
+    {   
+        position: absolute;
+        top: 49%;
+        width: 460px;
+        height: 650px;
+    }
+    .logo img
+    {
+        height: 0;
+    }
+
+    .form-control
+    {
+        margin-left: 100px;
+    }
+    .form-select
+    {
+        margin-left: 100px;
     }
 }
