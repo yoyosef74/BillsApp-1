@@ -53,13 +53,13 @@ const SignupScreen = () => {
   return (
      <body>
         <div className="row g-0 overflow-hidden">
-            <div className="col-xl-5 g-0">
+            <div className="col-lg-5 g-0">
                 <div className="left-side  overflow-hidden">
 
                 </div>
             </div>
 
-            <div className="col-xl-7 g-0">
+            <div className="col-lg-7 g-0">
                 <div className="right-side overflow-hidden">
                     
                     <div className="logo mt-3">
