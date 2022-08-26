@@ -83,10 +83,9 @@ const SignupScreen = () => {
                                     </div>                                
 
                                     <div className="col-md-5 mb-3">
-                                        <input  onChange={(e)=> setEmail(e.target.value)} className="form-control" name="ClientEmail" type="email" placeholder="Email" required />
+                                        <input  onChange={(e)=> setcommercialSub(e.target.value)} className="form-control" name="CommercialSub" type="text" placeholder="Commercial subscription" required />
                                     </div>
                                     <div className="col-md-1"></div>
-
 
                                     <div className="col-md-1"></div>
                                     <div className="col-md-5 mb-3">
@@ -94,14 +93,14 @@ const SignupScreen = () => {
                                     </div>                                
 
                                     <div className="col-md-5 mb-3">
-                                        <input  onChange={(e)=> setPassword(e.target.value)} className="form-control" name="Psw" type="password" placeholder="Password" required />
+                                        <input  onChange={(e)=> setEmail(e.target.value)} className="form-control" name="ClientEmail" type="email" placeholder="Email" required />   
                                     </div>
                                     <div className="col-md-1"></div>
 
 
                                     <div className="col-md-1"></div>
                                     <div className="col-md-5 mb-3">
-                                        <input  onChange={(e)=> setcommercialSub(e.target.value)} className="form-control" name="CommercialSub" type="text" placeholder="Commercial subscription" required />
+                                        <input  onChange={(e)=> setPassword(e.target.value)} className="form-control" name="Psw" type="password" placeholder="Password" required />
                                     </div>                                
 
                                     <div className="col-md-5 mb-3">
