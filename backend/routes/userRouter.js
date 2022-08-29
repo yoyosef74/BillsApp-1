@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {signup,login, forgotPassword, resetPassword, updatePassword, protect, sendActivationEmail, activateAccount, restrictToAdmin, getAllUsers, getAllUnactiveUsers, getAllNormalUsers, getUser} = require('../controllers/userController');
+const {signup,login, forgotPassword, resetPassword, updatePassword, protect, sendActivationEmail, activateAccount, restrictToAdmin, getAllUsers, getAllUnactiveUsers, getAllNormalUsers, getUser,restrictToFinance,getAllNormalActiveUsers} = require('../controllers/userController');
 
 router.post('/signup',signup);
 router.post('/login',login);
@@ -12,6 +12,7 @@ router.get('/getAllUsers',protect,restrictToAdmin,getAllUsers)
 router.get('/getAllNormalUsers',protect,restrictToAdmin,getAllNormalUsers)
 router.get('/getAllUnactiveUsers',protect,restrictToAdmin,getAllUnactiveUsers)
 router.get('/:id',protect,restrictToAdmin,getUser)
+router.get('/getAllNormalActiveUsers',protect,restrictToFinance,getAllNormalActiveUsers)
 
 router.patch('/updatePassword',protect,updatePassword)
 

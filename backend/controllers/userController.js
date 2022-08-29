@@ -233,6 +233,23 @@ exports.restrictToAdmin = catchAsync(async(req,res,next)=>{
     next();
 });
 
+exports.restrictToFinance = catchAsync(async (req, res, next) => {
+    if (req.user.role !== "financial-user")
+      return next(new AppError("Unauthorized Access", 400));
+    next();
+  });
+  
+  exports.getAllNormalActiveUsers = catchAsync(async (req, res, next) => {
+    const users = await User.find({ role: "user", active: true });
+    res.status(200).json({
+      status: "success",
+      results: users.length,
+      data: {
+        users,
+      },
+    });
+  });
+
 exports.getAllUsers = catchAsync(async(req,res,next)=> {
     const users = await User.find();
     res.status(200).json({
