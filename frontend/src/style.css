@@ -235,3 +235,414 @@ input[type="file"] {
     font-size: xx-large;
     margin-top: 10%;
 }
+
+/*  */
+
+:root 
+{
+  --second-text-color: #bbbec5;
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+#wrapper {
+  overflow-x: hidden;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+} 
+
+#sidebar-wrapper7 
+{
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper7 .sidebar-logo img
+{
+  width: 240px;
+  height: 130px;
+}
+
+#sidebar-wrapper7 .list-group 
+{
+  width: 15rem;
+}
+
+#page-content-wrapper 
+{
+  min-width: 100vw;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+#wrapper.toggled #sidebar-wrapper7 
+{
+  margin-left: 0;
+}
+
+#menu-toggle 
+{
+  cursor: pointer;
+}
+
+.list-group-item 
+{
+  border: none;
+  padding: 20px 30px;
+}
+
+.list-group-item.active 
+{
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+}
+
+#page-content-wrapper
+{
+  position: relative;
+}
+
+.form-container7
+{
+    position: absolute;
+    top: 53%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 61%;
+    padding: 40px 30px 10px 30px;
+    background-color: white;
+    box-shadow: 10px 10px 60px rgb(16, 15, 15);
+    border-radius: 12px;
+}
+.form-container7 .table
+{
+  font-size: 17px;
+}
+
+.form-container7 img
+{
+  width: 100px;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+@media (min-width: 992px) 
+{
+  #sidebar-wrapper7 
+  {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper 
+  {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper7 
+  {
+    margin-left: -15rem;
+  }
+
+}
+
+@media screen and (max-width: 760px)
+{
+  .form-container7
+  {
+    width: 450px;
+    height: 560px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    left: 50%;
+  }
+}
+
+@media screen and (max-width: 1540px)
+{
+  #wrapper.toggled .form-container7 
+  {
+    width: 61%;
+    position: absolute;
+    left: 49%;
+  }
+}
+:root 
+{
+  --second-text-color: #bbbec5;
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+#wrapper {
+  overflow-x: hidden;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+} 
+
+#sidebar-wrapper 
+{
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-logo img
+{
+  width: 240px;
+  height: 130px;
+}
+
+#sidebar-wrapper .list-group 
+{
+  width: 15rem;
+}
+
+#page-content-wrapper 
+{
+  min-width: 100vw;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+#wrapper.toggled #sidebar-wrapper 
+{
+  margin-left: 0;
+}
+
+#menu-toggle 
+{
+  cursor: pointer;
+}
+
+.list-group-item 
+{
+  border: none;
+  padding: 20px 30px;
+}
+
+.list-group-item.active 
+{
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+}
+
+
+#page-content-wrapper
+{
+  position: relative;
+}
+.Head1-Table
+{
+  position: absolute;
+  top: 23%;
+  right: 2px;
+}
+
+@media (min-width: 768px) 
+{
+  #sidebar-wrapper 
+  {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper 
+  {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper 
+  {
+    margin-left: -15rem;
+  }
+}
+:root 
+{
+  --second-text-color: #bbbec5;
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+#wrapper {
+  overflow-x: hidden;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+} 
+
+#sidebar-wrapper 
+{
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-logo img
+{
+  width: 240px;
+  height: 130px;
+}
+
+#sidebar-wrapper .list-group 
+{
+  width: 15rem;
+}
+
+#page-content-wrapper8 
+{
+  min-width: 100vw;
+  background-image: url(./screens/imgs/IMG_6625.jpg);
+  background-size: cover ;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+#wrapper.toggled #sidebar-wrapper 
+{
+  margin-left: 0;
+}
+
+#menu-toggle 
+{
+  cursor: pointer;
+}
+
+.list-group-item 
+{
+  border: none;
+  padding: 20px 30px;
+}
+
+.list-group-item.active 
+{
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+}
+
+#page-content-wrapper8
+{
+  position: relative;
+}
+
+.Head-Table8
+{
+  position: absolute;
+  top: 42%;
+  right: 2px;
+}
+
+.form-container8
+{
+    position: absolute;
+    top: 29%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 43%;
+    padding: 50px 30px 0px 30px;
+    border-radius: 18px;
+}
+.form-container8 .table
+{
+  font-size: 14px;
+}
+
+.form-container8 img
+{
+  width: 70px;
+  position: absolute;
+  top: -4%;
+  left: 40%;
+}
+
+@media (min-width: 992px) 
+{
+  #sidebar-wrapper 
+  {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper8 
+  {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper 
+  {
+    margin-left: -15rem;
+  }
+}
+
+@media (max-width: 668px) 
+{
+  #page-content-wrapper8
+  {
+    overflow-x: scroll;
+  }
+  .Head-Table8
+  {
+    margin: 10px;
+  }
+  .form-container8
+  {
+    position: absolute;
+    top: 30%;
+  }
+}
+
+@media (max-width: 680px)
+{
+  .form-container8 img
+  {
+    position: absolute;
+    left: 50%;
+  }
+}
+@media (max-width: 580px)
+{
+  .form-container8 img
+  {
+    position: absolute;
+    left: 58%;
+  }
+}
+@media screen and (max-width: 1550px)
+{
+  #wrapper.toggled .form-container8
+  {
+    position: absolute;
+    left: 48%;
+    width: 39%;
+  }
+}  

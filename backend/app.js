@@ -9,6 +9,8 @@ const xss = require("xss-clean");
 const globalErrorHandler = require('./controllers/errorController')
 const AppError = require('./utils/AppError');
 
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

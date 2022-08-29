@@ -226,3 +226,31 @@ exports.protect = catchAsync(async(req,res,next)=> {
    req.user = freshUser;
     next();
 })
+
+exports.restrictToAdmin = catchAsync(async(req,res,next)=>{
+    if(req.user.role !=='admin')
+        return next(new AppError('Unauthorized Access',400))
+    next();
+});
+
+exports.getAllUsers = catchAsync(async(req,res,next)=> {
+    const users = await User.find();
+    res.status(200).json({
+        status: 'success',
+        results: users.length,
+        data: {
+            users
+        }
+    })
+})
+
+exports.getAllUnactiveUsers = catchAsync(async(req,res,next)=> {
+    const users = await User.find({active: false});
+    res.status(200).json({
+        status: 'success',
+        results: users.length,
+        data: {
+            users
+        }
+    })
+})

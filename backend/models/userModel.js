@@ -58,6 +58,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default:false
     },
+    role: {
+        type:String,
+        enum:['user','admin','financial-user'],
+        default: 'user'
+    },
     passwordResetToken: String,
     passwordResetExpires: Date,
     activationToken: String
