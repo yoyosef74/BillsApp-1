@@ -244,6 +244,17 @@ exports.getAllUsers = catchAsync(async(req,res,next)=> {
     })
 })
 
+exports.getAllNormalUsers = catchAsync(async(req,res,next)=> {
+    const users = await User.find({role: 'user'});
+    res.status(200).json({
+        status: 'success',
+        results: users.length,
+        data: {
+            users
+        }
+    })
+})
+
 exports.getAllUnactiveUsers = catchAsync(async(req,res,next)=> {
     const users = await User.find({active: false});
     res.status(200).json({
@@ -251,6 +262,16 @@ exports.getAllUnactiveUsers = catchAsync(async(req,res,next)=> {
         results: users.length,
         data: {
             users
+        }
+    })
+})
+
+exports.getUser = catchAsync(async(req,res,next) => {
+    const user = await User.findOne({_id: req.params.id});
+     res.status(200).json({
+        status: 'success',
+        data: {
+            user
         }
     })
 })

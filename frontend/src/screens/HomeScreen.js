@@ -11,13 +11,6 @@ const HomeScreen = () => {
   }
   const onFileUpload = async() => {
     try{
-    //      const config = {
-    //      headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //     'Authorization': `JWT ${token}`
-    //   },
-    // }
-    
     const formData = new FormData();
     formData.append("xlsx",xlsx,xlsx.name);
     console.log('here')
@@ -72,13 +65,13 @@ const HomeScreen = () => {
                                
                     }
 
-                    <label for="file" className="rounded-pill">
+                    {/* <label for="file" className="rounded-pill">
                         Upload file here
                         <i className="fa fa-upload ms-3"></i>
                     </label>
                     <button  className='m-auto text-center' variant="success" onClick={onFileUpload}> 
                      Upload! 
-                   </button> 
+                   </button>  */}
 
                 </div>
                 

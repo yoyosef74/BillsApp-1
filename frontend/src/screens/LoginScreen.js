@@ -21,8 +21,12 @@ const LoginScreen = () => {
         const {data} = await axios.post(url, { email, 'password': password}, config);
         const {token} = data;
         console.log(data)
-        if(data.data.user.active)
+        if(data.data.user.active) {
+            if(data.data.user.role ==='user')
          navigate(`/HomeScreen/${data.data.user._id}/${token}`);
+        else if(data.data.user.role ==='admin' || data.data.user.role ==='financial-user')
+        navigate(`/admin/${data.data.user._id}/${token}`);
+        }
         else
         navigate(`/Waiting/${data.data.user._id}/${token}`);
      }
