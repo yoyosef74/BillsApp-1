@@ -53,13 +53,13 @@ const SignupScreen = () => {
   return (
      <body>
         <div className="row g-0 overflow-hidden">
-            <div className="col-xl-5 g-0">
+            <div className="col-lg-5 g-0">
                 <div className="left-side  overflow-hidden">
 
                 </div>
             </div>
 
-            <div className="col-xl-7 g-0">
+            <div className="col-lg-7 g-0">
                 <div className="right-side overflow-hidden">
                     
                     <div className="logo mt-3">
@@ -77,41 +77,40 @@ const SignupScreen = () => {
                             <Form onSubmit={submitHandler}>
                                 <div className="row">
                                     
-                                    <div className="col-sm-1"></div>
-                                    <div className="col-sm-5 mb-3">
+                                    <div className="col-md-1"></div>
+                                    <div className="col-md-5 mb-3">
                                         <input  onChange={(e)=> setName(e.target.value)} className="form-control" name="MerchantName" type="text" placeholder="Merchant Name" required />
                                     </div>                                
 
-                                    <div className="col-sm-5 mb-3">
-                                        <input  onChange={(e)=> setEmail(e.target.value)} className="form-control" name="ClientEmail" type="email" placeholder="Email" required />
+                                    <div className="col-md-5 mb-3">
+                                        <input  onChange={(e)=> setcommercialSub(e.target.value)} className="form-control" name="CommercialSub" type="text" placeholder="Commercial subscription" required />
                                     </div>
-                                    <div className="col-sm-1"></div>
+                                    <div className="col-md-1"></div>
 
-
-                                    <div className="col-sm-1"></div>
-                                    <div className="col-sm-5 mb-3">
+                                    <div className="col-md-1"></div>
+                                    <div className="col-md-5 mb-3">
                                         <input  onChange={(e)=> setcommercialNum(e.target.value)} className="form-control" name="CommercialNum" type="number" placeholder="Commercial number" required />
                                     </div>                                
 
-                                    <div className="col-sm-5 mb-3">
-                                        <input  onChange={(e)=> setPassword(e.target.value)} className="form-control" name="Psw" type="password" placeholder="Password" required />
+                                    <div className="col-md-5 mb-3">
+                                        <input  onChange={(e)=> setEmail(e.target.value)} className="form-control" name="ClientEmail" type="email" placeholder="Email" required />   
                                     </div>
-                                    <div className="col-sm-1"></div>
+                                    <div className="col-md-1"></div>
 
 
-                                    <div className="col-sm-1"></div>
-                                    <div className="col-sm-5 mb-3">
-                                        <input  onChange={(e)=> setcommercialSub(e.target.value)} className="form-control" name="CommercialSub" type="text" placeholder="Commercial subscription" required />
+                                    <div className="col-md-1"></div>
+                                    <div className="col-md-5 mb-3">
+                                        <input  onChange={(e)=> setPassword(e.target.value)} className="form-control" name="Psw" type="password" placeholder="Password" required />
                                     </div>                                
 
-                                    <div className="col-sm-5 mb-3">
+                                    <div className="col-md-5 mb-3">
                                         <input  onChange={(e)=> setpasswordConfirm(e.target.value)} className="form-control" name="ConfPsw" type="password" placeholder="Confirm password" required />
                                     </div>
-                                    <div className="col-sm-1"></div>
+                                    <div className="col-md-1"></div>
 
 
-                                    <div className="col-sm-1"></div>
-                                    <div className="col-sm-5 mb-3">
+                                    <div className="col-md-1"></div>
+                                    <div className="col-md-5 mb-3">
                                         <select  onChange={(e)=> setReminderCycle(e.target.value)} className="form-select" aria-label="Default select example">
                                             <option selected disabled>Reports</option>
                                             <option value="monthly">monthly</option>
@@ -120,7 +119,7 @@ const SignupScreen = () => {
                                         </select>
                                     </div>
 
-                                    <div className="col-sm-5 mb-3">
+                                    <div className="col-md-5 mb-3">
                                         <select className="form-select"  onChange={(e)=> setBillsCycle(e.target.value)} aria-label="Default select example">
                                             <option selected disabled>Bills cycle</option>
                                             <option value="monthly">monthly</option>
@@ -128,9 +127,9 @@ const SignupScreen = () => {
                                             <option value="quarterly">quarterly</option>
                                         </select>
                                     </div>
-                                    <div className="col-sm-1"></div>
+                                    <div className="col-md-1"></div>
 
-                                    <div className="col-sm-12 mt-4 text-center">
+                                    <div className="col-md-12 mt-4 text-center">
                                         <button className="btn btn-primary rounded-pill px-5">Sign up</button>
                                     </div>
                                     <div className="control text-center mt-4">

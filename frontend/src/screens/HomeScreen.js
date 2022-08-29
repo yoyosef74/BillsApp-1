@@ -58,6 +58,7 @@ const HomeScreen = () => {
 
                 <div className="Upload">
                     <input type="file" name="xlsx" id="file" onChange={onFileChange} />
+
                    
                         {xlsx? <label for="file" className="rounded-pill">{xlsx.name} <i className="fa fa-upload ms-3"></i> </label> 
                         : <label for="file" className="rounded-pill">Choose file here <i className="fa fa-upload ms-3"></i> </label> }
@@ -70,6 +71,15 @@ const HomeScreen = () => {
                                     </button> 
                                
                     }
+
+                    <label for="file" className="rounded-pill">
+                        Upload file here
+                        <i className="fa fa-upload ms-3"></i>
+                    </label>
+                    <button  className='m-auto text-center' variant="success" onClick={onFileUpload}> 
+                     Upload! 
+                   </button> 
+
                 </div>
                 
 
