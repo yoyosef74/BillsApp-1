@@ -11,13 +11,13 @@ const userSchema = new mongoose.Schema({
     },
     commercialSub: {
         type: Number,
-        required: true,
-        unique: true,
+        required: this.role==='user'?true:false,
+        unique: this.role==='user'?true:false,
     },
      commercialNum: {
         type: Number,
-        required: true,
-        unique: true,
+        required: this.role==='user'?true:false,
+        unique: this.role==='user'?true:false,
     },
     email: {
          type: String,
@@ -54,15 +54,16 @@ const userSchema = new mongoose.Schema({
         enum:['monthly','weekly','quarterly'],
         default: 'monthly'  
     },
-    active: {
-        type: Boolean,
-        default:false
-    },
     role: {
         type:String,
         enum:['user','admin','financial-user'],
         default: 'user'
     },
+    active: {
+        type: Boolean,
+        default: this.role==='user'?false:true
+    },
+    
     passwordResetToken: String,
     passwordResetExpires: Date,
     activationToken: String

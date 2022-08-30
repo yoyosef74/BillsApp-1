@@ -12,6 +12,7 @@ import WaitingScreen from './screens/WaitingScreen';
 import AdminScreen from './screens/AdminScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import UserReportsScreen from './screens/UserReportsScreen';
+import ActivationScreen from './screens/ActivationScreen';
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
          <Route  path='/resetPassword/:token' element={<ResetPasswordScreen/>}> </Route>
          <Route path='/HomeScreen/:id/:token' element={<HomeScreen />}></Route>
          <Route path='/waiting/:id/:token' element={<WaitingScreen />}></Route>
-         <Route path='/admin/:id/:token' element={<AdminScreen />}></Route>
+         <Route path='/:userType/:id/:token' element={<AdminScreen />}></Route>
          <Route path='/admin/:id/:token/:userId' element={<UserProfileScreen />}></Route>
           <Route path='/finance/:id/:token/:userId/reports' element={<UserReportsScreen />}></Route>
+          <Route path='/activate/:token/' element={<ActivationScreen/>}></Route>
       </Routes>
     </Router>
     </>

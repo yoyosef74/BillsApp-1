@@ -1,8 +1,13 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import {
+  useParams
+} from "react-router-dom";
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 const HomeScreen = () => {
+  let {id} = useParams();
   const [xlsx,setXlsx] = useState('');
+   const [user,setUser] = useState('');
   const [error,setError] = useState('');
   const [message,setMessage] = useState('');
   
@@ -12,9 +17,17 @@ const HomeScreen = () => {
   const onFileUpload = async() => {
     try{
     const formData = new FormData();
-    formData.append("xlsx",xlsx,xlsx.name);
-    console.log('here')
-    await axios.post("http://localhost:8000/api/v1/bills", formData);
+    formData.append("file",xlsx,xlsx.name);
+    const serviceId = user.serviceId || 905079;
+    formData.append("serviceId",serviceId);
+    
+    //VPN
+    await axios.post("http://10.140.173.14:9096/upload", formData,{
+        auth: {
+            username: 'basma',
+            password: 'basma'
+        }
+    });
     setMessage('Uploaded Successfuly')
   }
   catch(err){
@@ -22,7 +35,19 @@ const HomeScreen = () => {
     setError('Error occured while uploading your file, please check the given format!')
   }
 }
-  
+    useEffect(()=>{
+        const x = async() => {
+             try {
+                const {data} = await axios.get('http://localhost:8000/api/v1/users/me')
+                setUser(data.data.user)
+            }
+            catch(err) {
+                setError(err)
+            };
+        }
+        x();
+    },[]);
+    
   return (
    <body>
         <div className="d-flex" id="wrapper">

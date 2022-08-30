@@ -46,7 +46,7 @@ exports.sendActivationEmail = catchAsync(async(req,res,next) => {
     await newUser.save({validateBeforeSave: false}); //we modified the doc but didnt update it in DB SO we save it
 
     //3 send it to users email
-    const activateURL = `${req.protocol}://${req.get('host')}/api/v1/users/activate/${activateToken}` // protocol https or http,
+    const activateURL = `${req.protocol}://localhost:3000/activate/${activateToken}` // protocol https or http,
     const message = `Congratulations, we have revised your data and it appears to be genuine. Please click on this link ${activateURL} to activate your account`
     try{
     await sendEmail({
@@ -104,6 +104,7 @@ exports.signup = catchAsync(async(req,res) => {
                                        passwordChangedAt: req.body.passwordChangedAt,
                                        commercialSub: req.body.commercialSub,
                                        commercialNum: req.body.commercialNum,
+                                       role: req.body.role,
                                        billsCycle: req.body.billsCycle,
                                        reportsCycle: req.body.remindersCycle
                                     });
@@ -228,12 +229,14 @@ exports.protect = catchAsync(async(req,res,next)=> {
 })
 
 exports.restrictToAdmin = catchAsync(async(req,res,next)=>{
+   
     if(req.user.role !=='admin')
-        return next(new AppError('Unauthorized Access',400))
+        return next(new AppError('Unauthorized Access, You are not an Admin',400))
     next();
 });
 
 exports.restrictToFinance = catchAsync(async (req, res, next) => {
+     console.log(req.user.email)
     if (req.user.role !== "financial-user")
       return next(new AppError("Unauthorized Access", 400));
     next();
@@ -285,6 +288,16 @@ exports.getAllUnactiveUsers = catchAsync(async(req,res,next)=> {
 
 exports.getUser = catchAsync(async(req,res,next) => {
     const user = await User.findOne({_id: req.params.id});
+     res.status(200).json({
+        status: 'success',
+        data: {
+            user
+        }
+    })
+})
+
+exports.getMe = catchAsync(async(req,res,next) => {
+    const user = await User.findOne({_id: req.user.id});
      res.status(200).json({
         status: 'success',
         data: {

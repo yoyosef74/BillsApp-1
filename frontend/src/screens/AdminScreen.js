@@ -7,23 +7,26 @@ const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const AdminScreen = () => {
    
-    let {id,token} = useParams();
+    let {token,userType} = useParams();
     const [error,setError] = useState('');
     const [users,setUsers] = useState('');
     useEffect(()=>{
          const getUsersList = async() => {
-        try {
+         try {
              const config = {
                 headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${token}`
                 }
              }
-            const {data} = await axios.get('http://localhost:8000/api/v1/users/getAllNormalUsers',config)
+            const str = userType==='admin'?'getAllNormalUsers':'finance/getAllNormalActiveUsers' 
+            console.log(str)
+            const {data} = await axios.get(`http://localhost:8000/api/v1/users/${str}`,config)
             setUsers(data.data.users)
             // console.log(users)
         }
         catch(err) {
+            console.log(err)
             setError(err)
         }}
         getUsersList();
@@ -69,7 +72,8 @@ const AdminScreen = () => {
                                             <th scope="col" width="50">#</th>
                                             <th scope="col" width="400">Name</th>
                                             <th scope="col" width="400">Email</th>
-                                            <th scope="col" width="200">Status</th>
+                                            {userType==='admin'? <th scope="col" width="200">Status</th>: <th scope="col" width="200">Biller Code</th>}
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,7 +82,7 @@ const AdminScreen = () => {
                                                     <td>{i}</td>
                                                     <td>{el.name}</td>
                                                     <td>{el.email}</td>
-                                                    <td>{el.active?"Verified":el.activationToken?"Verification Email Sent":"Not yet Verified"}</td>
+                                                   {userType==='admin'? <td>{el.active?"Verified":el.activationToken?"Verification Email Sent":"Not yet Verified"}</td>:<>Biller Code</>}
                                                     <td><a href={`${token}/${el._id}`}> view</a></td>
                                                 </tr>
                                 })):<></>
