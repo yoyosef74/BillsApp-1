@@ -13,7 +13,8 @@ import AdminScreen from './screens/AdminScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import UserReportsScreen from './screens/UserReportsScreen';
 import ActivationScreen from './screens/ActivationScreen';
-
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 function App() {
   return (
     <>

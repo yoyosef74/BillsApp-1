@@ -21,6 +21,7 @@ const createSendToken = (user,statusCode,res) => {
     Expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000 //Millisec
     ),
+    withCredentials: true,
     httpOnly: true //browser will store it and send it with every req on the server
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
@@ -199,9 +200,12 @@ exports.protect = catchAsync(async(req,res,next)=> {
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer'))
             token = req.headers.authorization.split(' ')[1] //to get token
+    else if(req.cookies.jwt)
+      token = req.cookies.jwt;
     if(!token) {
         return next(new AppError('Please Login',401));
     }
+    // console.log(req)
     //2 verification token to make sure payload not changed(userid) or expired
     const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET); //??
     
@@ -254,7 +258,10 @@ exports.restrictToFinance = catchAsync(async (req, res, next) => {
     next();
   });
   
-exports.setDefaultCredentialsForEnrolledUsers = catchAsync(async(req,res,next)=> {
+
+///WARNING!!!!!!!!///
+//DANGEROUS ZONE!!!! ONLY RUN ONCE AT FIRST, IT'LL CHANGE ALL USER EMAILS AND PASSWORDS!!!!/////
+exports.setDefaultCredentialsForEnrolledUsers = catchAsync(async(req,res,next)=> { 
     const users = await User.find({role:'user'});
     users.forEach(async(el) => {
         el.email = el.name+ "" + el.billerCode + "@billsApp.com";

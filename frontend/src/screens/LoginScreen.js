@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import {Form} from 'react-bootstrap'
 import { useNavigate } from "react-router-dom";
+import cookieClient from 'react-cookie'
 const axios = require('axios')
+
 
 const LoginScreen = () => {
     const navigate = useNavigate();
@@ -13,14 +15,16 @@ const LoginScreen = () => {
         e.preventDefault();
         try {
          const config = {
+        withCredentials: true,
          headers: {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
         const url = "http://localhost:8000/api/v1/users/login";
-        const {data} = await axios.post(url, { email, 'password': password}, config);
+        const res = await axios.post(url, { email, 'password': password}, config);
+        const {data} = res;
         const {token} = data;
-        console.log(data)
+        // console.log(data)
         if(data.data.user.active) {
             if(data.data.user.role ==='user') {
                 navigate(`/HomeScreen/${data.data.user._id}/${token}`);}

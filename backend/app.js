@@ -8,17 +8,25 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const globalErrorHandler = require('./controllers/errorController')
 const AppError = require('./utils/AppError');
+const cookieParser = require('cookie-parser')
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionsSuccessStatus: 200 // For legacy browser support
+}
 
+app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser())
 app.use(mongoSanitize());
 app.use(helmet());
 app.use(xss());
 
-app.use(cors());
+
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/bills", billsRouter);

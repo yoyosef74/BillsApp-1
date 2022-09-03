@@ -15,9 +15,10 @@ const AdminScreen = () => {
          const getUsersList = async() => {
          try {
              const config = {
+                // withCredentials: true,
                 headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': `Bearer ${token}`
+                // 'Authorization': `Bearer ${token}`
                 }
              }
             const str = userType==='admin'?'getAllNormalUsers':'finance/getAllNormalActiveUsers' 
