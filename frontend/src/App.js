@@ -27,9 +27,9 @@ function App() {
          <Route path='/HomeScreen/:id/:token' element={<HomeScreen />}></Route>
          <Route path='/waiting/:id/:token' element={<WaitingScreen />}></Route>
          <Route path='/:userType/:id/:token' element={<AdminScreen />}></Route>
-         <Route path='/admin/:id/:token/:userId' element={<UserProfileScreen />}></Route>
-          <Route path='/finance/:id/:token/:userId/reports' element={<UserReportsScreen />}></Route>
-          <Route path='/activate/:token/' element={<ActivationScreen/>}></Route>
+         <Route path='/profile/:adminId/:token/:userId' element={<UserProfileScreen />}></Route>
+          <Route path='/reports/:financialId/:token/:userId/' element={<UserReportsScreen />}></Route>
+          <Route path='/activate/:token/:id' element={<ActivationScreen/>}></Route>
       </Routes>
     </Router>
     </>

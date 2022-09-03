@@ -7,9 +7,10 @@ const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const AdminScreen = () => {
    
-    let {token,userType} = useParams();
+    let {token,userType,id} = useParams();
     const [error,setError] = useState('');
     const [users,setUsers] = useState('');
+    // let hrefUrl = userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`;
     useEffect(()=>{
          const getUsersList = async() => {
          try {
@@ -20,10 +21,10 @@ const AdminScreen = () => {
                 }
              }
             const str = userType==='admin'?'getAllNormalUsers':'finance/getAllNormalActiveUsers' 
-            console.log(str)
+            // console.log(str)
             const {data} = await axios.get(`http://localhost:8000/api/v1/users/${str}`,config)
             setUsers(data.data.users)
-            // console.log(users)
+            console.log(data)
         }
         catch(err) {
             console.log(err)
@@ -41,11 +42,11 @@ const AdminScreen = () => {
 
                 <div className="list-group list-group-flush my-3">
 
-                    <a  className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                    <a  href={userType==='admin'?`/admin/${id}/${token}`:`/financial-user/${id}/${token}`} className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="/" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>
@@ -55,7 +56,7 @@ const AdminScreen = () => {
                 <nav className="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div className="d-flex align-items-center">
                         <i className="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-                        <h2 className="fs-2 m-0">Admin Panel</h2>
+                        <h2 className="fs-2 m-0">{userType==='admin'?'Admin Panel':'Financial Panel'}</h2>
                     </div>
                 </nav>
 
@@ -82,8 +83,9 @@ const AdminScreen = () => {
                                                     <td>{i}</td>
                                                     <td>{el.name}</td>
                                                     <td>{el.email}</td>
-                                                   {userType==='admin'? <td>{el.active?"Verified":el.activationToken?"Verification Email Sent":"Not yet Verified"}</td>:<>Biller Code</>}
-                                                    <td><a href={`${token}/${el._id}`}> view</a></td>
+                                                   {userType==='admin'? <td>{el.active?"Verified":el.activationToken?"Verification Email Sent":"Not yet Verified"}</td>:<>{el.billerCode}</>}
+                                                    <td><a href={ userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`}
+                                                    > view</a></td>
                                                 </tr>
                                 })):<></>
                                 }

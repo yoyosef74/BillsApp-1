@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
          required:[true,'Please enter an email'],
          unique: true,
          lowercase: true,
-         validate: [validator.isEmail,'Please enter a valid email']
+         validate: [validator.isEmail,'Please enter a valid email'],
+         trim: true
     },
     password: {
         type: String,
@@ -61,9 +62,33 @@ const userSchema = new mongoose.Schema({
     },
     active: {
         type: Boolean,
-        default: this.role==='user'?false:true
+        default: false
     },
-    
+    CCFLAG: {
+        type: String,
+        default: "n"
+    },
+    PPFLAG: {
+        type: String,
+        default: "n"
+    },
+    IRFLAG: {
+        type: String,
+        default: "n"
+    },
+    OTPFLAG: {
+        type: String,
+        default: "n"
+    },
+    billerCode: {
+        type: Number,
+        default: 90999
+    },
+    emailVerified : {
+        type: Boolean,
+        default:false},
+    OTP :Number,
+    OTPExpirationDate: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
     activationToken: String
@@ -78,7 +103,10 @@ userSchema.pre('save',async function(next) {
     this.passwordConfirm = undefined;
     next();
 })
-
+userSchema.pre('save',async function(next) {
+    if(this.role !== 'user') this.active = true;
+    next();
+})
 //instance methods
 
 userSchema.methods.correctPassword = async function(candidatePassword,userPassword) {

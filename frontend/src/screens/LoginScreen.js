@@ -22,8 +22,8 @@ const LoginScreen = () => {
         const {token} = data;
         console.log(data)
         if(data.data.user.active) {
-            if(data.data.user.role ==='user')
-         navigate(`/HomeScreen/${data.data.user._id}/${token}`);
+            if(data.data.user.role ==='user') {
+                navigate(`/HomeScreen/${data.data.user._id}/${token}`);}
         else if(data.data.user.role ==='admin' || data.data.user.role ==='financial-user')
         navigate(`/${data.data.user.role}/${data.data.user._id}/${token}`);
         }

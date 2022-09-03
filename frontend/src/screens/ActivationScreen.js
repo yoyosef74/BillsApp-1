@@ -1,23 +1,43 @@
 import axios from 'axios'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     useNavigate,
   useParams
 } from "react-router-dom";
 
+const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
+
 const ActivationScreen = () => {
     const navigate = useNavigate();
-    const {token} = useParams();
+    const {token,id} = useParams();
     const [error, setError] = useState('');
+    const [user, setUser]= useState('');
     const activateAccount = async() =>{
         try{
-        await axios.post(`http://localhost:8000/api/v1/users/activate/${token}`);
+          console.log(3)
+          await axios.post(`http://localhost:8000/api/v1/users/activate/${token}`);
+        // Check if there is a user
+        // const res = await axios.post(`http://10.140.173.14:9096/billerConfig`,user)
         navigate('/login')
     }
     catch(err) {
         setError(err.data.message);
     }
     }
+    useEffect(()=> {
+
+      const getUser = async() => {
+        const config = {
+          headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': `${token}`
+          }
+       }
+      const {data} = await axios.get('http://localhost:8000/api/v1/users/me2',config)
+        setUser(data.data.user);
+      }
+      getUser();
+    },[])
   return (
     <body>
 
@@ -25,9 +45,8 @@ const ActivationScreen = () => {
 
 <div className="activation__wrapper">
   <div className="activation__container">
-    <div className="activation__header"><img className="activation__logo" src="http://hortonworks.com/wp-content/uploads/2013/10/Fusionex-Logo-New.png" /></div>
-    <div className="activation__subject">Fusionex GIANT Activation Link</div>
-    <div className="activation__arrow"></div>
+    <div className="activation__header"><img className="activation__logo" src={firstImage} /></div>
+    {/* <div className="activation__arrow"></div> */}
     <div className="activation__message">
       <div> Dear, <span className="activation__user"></span>
         

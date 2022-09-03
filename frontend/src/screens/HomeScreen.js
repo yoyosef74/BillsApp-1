@@ -5,11 +5,12 @@ import {
 } from "react-router-dom";
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 const HomeScreen = () => {
-  let {id} = useParams();
+  let {id,token} = useParams();
   const [xlsx,setXlsx] = useState('');
    const [user,setUser] = useState('');
   const [error,setError] = useState('');
   const [message,setMessage] = useState('');
+  const[reports,setReports] = useState('');
   
   const onFileChange = event => {
     setXlsx(event.target.files[0])
@@ -22,12 +23,13 @@ const HomeScreen = () => {
     formData.append("serviceId",serviceId);
     
     //VPN
-    await axios.post("http://10.140.173.14:9096/upload", formData,{
+   const res= await axios.post("http://10.140.173.14:9096/upload", formData,{
         auth: {
             username: 'basma',
             password: 'basma'
         }
     });
+    console.log(res)
     setMessage('Uploaded Successfuly')
   }
   catch(err){
@@ -36,17 +38,52 @@ const HomeScreen = () => {
   }
 }
     useEffect(()=>{
-        const x = async() => {
+        const getUser = async() => {
              try {
-                const {data} = await axios.get('http://localhost:8000/api/v1/users/me')
+                const config = {
+                    headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': `Bearer ${token}`
+                    }
+                 }
+                const {data} = await axios.get(`http://localhost:8000/api/v1/users/${id}/me`,config)
                 setUser(data.data.user)
             }
             catch(err) {
+                console.log(err)
                 setError(err)
             };
         }
-        x();
-    },[]);
+        const getReports = async() => {
+            try{
+                if(!user)
+                    return
+                const {data} = await axios.post('http://10.140.173.14:9096/billStatusReport', {
+                    billerCode:
+                     user.billerCode,
+                    //  905172 ,
+                    serviceId: 905079
+                },
+                {
+                    auth:{
+                        username: 'basma',
+                        password: 'basma'
+                    }
+                }
+                )
+                setReports(data.data)
+                console.log(data);
+            }
+            catch(err) {
+                setError(err);
+            }
+        }
+        const onRender = () =>{
+            getUser()
+            getReports();
+        } 
+        onRender();
+    },[user.billerCode]);
     
   return (
    <body>
@@ -60,10 +97,6 @@ const HomeScreen = () => {
 
                     <a href="#" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-home me-2 mt-4"></i>Home
-                    </a>
-
-                    <a href="#" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
-                        <i className="fa fa-file me-2"></i> Reports
                     </a>
 
                     <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
@@ -82,8 +115,8 @@ const HomeScreen = () => {
                         : <label for="file" className="rounded-pill">Choose file here <i className="fa fa-upload ms-3"></i> </label> }
                     {
                                     error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large',background:'transparent'}}>{error}</label>:
-                                    message?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large',background:'transparent'}}>{message}</label>:
-                                    <button  className='m-auto text-center' variant="success" style={{fontSize:'x-large', background:'#3e2'}}
+                                    message?<label className='m-auto text-center' variant="success" style={{color: 'orange',fontSize:'large',background:'transparent'}}>{message}</label>:
+                                    <button  className='m-auto text-center btnupl' variant="success" style={{fontSize:'x-large', background:'fff'}}
                                         onClick={onFileUpload}> 
                                         Upload! 
                                     </button> 
@@ -112,79 +145,36 @@ const HomeScreen = () => {
                     <div className="row my-5">
 
                         <div className="Head-Table">
-                            <h3 className="fs-5 mb-3">Uploading History</h3>
+                            <h3 className="fs-5 mb-3">Reports</h3>
 
                             <div className="col">
-                                <table className="table table-bordered text-center bg-white rounded shadow-sm  table-hover">
+                            <table className="table table-bordered text-center bg-white rounded shadow-sm  table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col" width="50">#</th>
-                                            <th scope="col" width="420">Files</th>
-                                            <th scope="col" width="450">Date</th>
-                                            <th scope="col">Download</th>
+                                            <th scope="col" width="10">#</th>
+                                            <th scope="col" width="100">billerName</th>
+                                            <th scope="col" width="100">Available amount</th>
+                                            <th scope="col" width="100">Due Date</th>
+                                            <th scope="col" width="100">Expiry Date</th>
+                                            <th scope="col" width="100">Mobile Number</th>
+                                            <th scope="col" width="100">status</th>
+                                            <th scope="col" width="100">billNumber</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row" width="100">1</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">6</th>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td>
-                                                <a href="#" className="list-group-item-action second-text fw-bold fs-5">
-                                                    <i className="fa fa-download"></i>
-                                                </a>
-                                            </td>
-                                        </tr>   
+                                    {reports?(reports.map((el,i) => {
+                                         return <tr>
+                                                    <td>{i}</td>
+                                                    <td>{el.customerName}</td>
+                                                    <td>{el.amount}</td>
+                                                    <td>{el.dueDate}</td>
+                                                    <td>{el.expirationDate}</td>
+                                                    <td>{el.mobileNumber}</td>
+                                                    <td>{el.status}</td>
+                                                    <td>{el.billNumber}</td>
+                                                </tr>
+                                })):<></>
+                                }
                                     </tbody>
                                 </table>
                             </div>

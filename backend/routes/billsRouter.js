@@ -10,9 +10,10 @@ router
   .post(billController.upload.single("xlsx"), billController.uploadXLSX);
 // .post(billController.upload.single('xlsx'), billController.uploadXLSX);
 
+
 router
   .route("/:id")
   .post(billController.downloadXLSX)
-  .delete(billController.deleteBill);
+  // .delete(billController.deleteBill);
 //router.post("/upload", upload.single("xlsx"), uploadXLSX);
 module.exports = router;

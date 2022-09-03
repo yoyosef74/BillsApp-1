@@ -6,7 +6,7 @@ import axios from 'axios'
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const UserProfileScreen = () => {
-    let {id,token,userId} = useParams();
+    let {token,userId,id} = useParams();
     const [error,setError] = useState('');
     const [user,setUser] = useState('');
     const [emailError,setEmailError] = useState('');
@@ -62,15 +62,15 @@ const UserProfileScreen = () => {
 
                 <div className="list-group list-group-flush my-3">
 
-                    <a href="/" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                    <a href={`/admin/${id}/${token}`} className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="/" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                    {/* <a href="/" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-arrow-left me-2"></i> User Requests
-                    </a>
+                    </a> */}
 
-                    <a href="/" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>

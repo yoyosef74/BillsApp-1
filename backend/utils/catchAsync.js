@@ -1,4 +1,4 @@
-module.exports = fn => { //Video 116
+module.exports = fn => { 
     return(req,res,next) => {
     fn(req,res,next).catch(err => next(err))
 }}

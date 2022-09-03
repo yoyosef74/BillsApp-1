@@ -1,7 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const UserReportsScreen = () => {
+    const [user,setUser] = useState('');
+    let {userId,token,id} = useParams();
+    const [error,setError] = useState('');
+    const[reports,setReports] = useState('');
+    useEffect(()=>{
+        const getUser = async() => {
+            try {
+                 const config = {
+                    headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': `Bearer ${token}`
+                    }
+                 }
+                const {data} = await axios.get(`http://localhost:8000/api/v1/users/${userId}`,config)
+                setUser(data.data.user);
+            }
+            catch(err) {
+                setError(err)
+            }}
+        const getReports = async() => {
+            try{
+                if(!user)
+                    return
+                const {data} = await axios.post('http://10.140.173.14:9096/billStatusReport', {
+                    billerCode:
+                    user.billerCode,
+                    //  905172 ,
+                    serviceId: 905079
+                },
+                {
+                    auth:{
+                        username: 'basma',
+                        password: 'basma'
+                    }
+                }
+                )
+                console.log(1)
+                setReports(data.data)
+            }
+            catch(err) {
+                setError(err);
+            }
+        }
+        const onRender = () =>{
+            getUser()
+            getReports();
+        } 
+        onRender();
+    },[user.billerCode])
   return (
     <body>
         <div className="d-flex" id="wrapper">
@@ -13,11 +64,11 @@ const UserReportsScreen = () => {
 
                 <div className="list-group list-group-flush my-3">
 
-                    <a href="#" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                    <a href={`/financial-user/${id}/${token}`} className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="#" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>
@@ -45,17 +96,21 @@ const UserReportsScreen = () => {
                                     <tbody>
                                         <tr>
                                             <td className="pb-2 pt-4 ps-4">Merchant Name:</td>
-                                            <td className="text-center pt-4 fw-semibold">jfdf fkf dkle wjqwuq</td>
+                                            <td className="text-center pt-4 fw-semibold">{user.name}</td>
                                         </tr>
                         
                                         <tr>
                                             <td className="pb-2 ps-4">Email:</td>
-                                            <td className="text-center fw-semibold">07775000077750000777k</td>
+                                            <td className="text-center fw-semibold">{user.email}</td>
                                         </tr>
                         
                                         <tr>
                                             <td className="pb-2 ps-4">Commercial number:</td>
-                                            <td className="text-center fw-semibold">zmdkdjhf587@yahoo.com</td>
+                                            <td className="text-center fw-semibold">{user.commercialNum}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="pb-2 ps-4">Biller Code:</td>
+                                            <td className="text-center fw-semibold">{user.billerCode}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -70,20 +125,32 @@ const UserReportsScreen = () => {
                                     <thead>
                                         <tr>
                                             <th scope="col" width="10">#</th>
-                                            <th scope="col" width="100">ldksrios</th>
-                                            <th scope="col" width="100">fksffjkj</th>
-                                            <th scope="col" width="100">fmfkfjfsk</th>
-                                            <th scope="col" width="100">daopdirrio</th>
-                                            <th scope="col" width="100">daopdirrio</th>
-                                            <th scope="col" width="100">daopdirrio</th>
-                                            <th scope="col" width="100">daopdirrio</th>
+                                            <th scope="col" width="100">billerName</th>
+                                            <th scope="col" width="100">amount</th>
+                                            <th scope="col" width="100">Due Date</th>
+                                            <th scope="col" width="100">Expiry Date</th>
+                                            <th scope="col" width="100">Mobile Number</th>
+                                            <th scope="col" width="100">status</th>
+                                            <th scope="col" width="100">billNumber</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                    {reports?(reports.map((el,i) => {
+                                         return <tr>
+                                                    <td>{i}</td>
+                                                    <td>{el.customerName}</td>
+                                                    <td>{el.amount}</td>
+                                                    <td>{el.dueDate}</td>
+                                                    <td>{el.expirationDate}</td>
+                                                    <td>{el.mobileNumber}</td>
+                                                    <td>{el.status}</td>
+                                                    <td>{el.billNumber}</td>
+                                                </tr>
+                                })):<></>
+                                }
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> 
                         </div>
 
                     </div>

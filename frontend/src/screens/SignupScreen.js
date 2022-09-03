@@ -38,7 +38,8 @@ const SignupScreen = () => {
                 commercialNum,
                 passwordConfirm,
                 billsCycle,
-                remindersCycle
+                remindersCycle,
+                role :'user'
             },
              config);
         const {token} = data;
