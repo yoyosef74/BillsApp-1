@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Form} from 'react-bootstrap'
 const axios = require('axios');
+const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const UpdatePasswordScreen = () => {
     const [email,setEmail] = useState('');
@@ -64,7 +65,7 @@ const UpdatePasswordScreen = () => {
         const url = "http://localhost:8000/api/v1/users/verifyEmail";
         // const {data} = 
         await axios.patch(url, {OTP}, config);
-        setMessage2('EmaiL uPDted')
+        setMessage2('Email updated')
      }
         catch(err) {
             console.log(err)
@@ -75,79 +76,109 @@ const UpdatePasswordScreen = () => {
 
   return (
     <body>
+    <div class="d-flex" id="wrapper">
+
+        
+        <div class="bg-white" id="sidebar-wrapper7">
+            <div class="sidebar-logo">
+                <img src={firstImage} alt=""/>
+            </div>
+
+            <div class="list-group list-group-flush my-3">
+
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                    <i class="fa fa-home me-2 mt-4"></i>Home
+                </a>
+
+
+                <a href="/login" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <i class="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
+                </a>
+            </div>
+        </div>
+        
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-4 px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">Dashboard</h2>
+                </div>
+            </nav>
+            <hr/>
             <div class="container-fluid px-4">
-                    <div class="row">                                       
-                            <div class="form-container9">
+                <div class="row">
+
+                        <div class="form-container10">
                                 
-                                <h1 class="text-center mb-4 pb-4">Update Email</h1>
+                            <h4 class=" mb-2 pb-3">ACCOUNT SETTINGS</h4>
 
+                            <Form >
+                                <div class="control">
+                                    <input onChange={(e)=> setEmail(e.target.value)} class="form-control mb-3" name="userName" type="text" placeholder="Email address" required/>
+                                </div>
 
-                                <Form >
-                                    <div class="control">
-                                        <input onChange={(e)=> setEmail(e.target.value)} class = "form-control mb-4" name="CurrentPsw" type="email" placeholder="Current Password" required/>
-                                    </div>
-    
-
-                                    <div class="control text-center mt-4">
-                                        <button onClick={updateEmail} class="btn btn-primary rounded-pill px-5 ">Change Email</button>
-                                    </div>
-
-
-                                    { message2? <div class="control">
-                                        <input onChange={(e)=> setOTP(e.target.value)} class ="form-control mb-4" name="NewPsw" type="number" placeholder="New Password" required/>
-                                    </div>:<></> }
-
-                                    <div class="control text-center mt-4">
-                                        <button onClick={verifyEmail} class="btn btn-primary rounded-pill px-5 ">Verify Email</button>
-                                    </div>
-                                  
-
-                                    <div className="control mb-5">
+                                <div class="control mb-3">
+                                    <input onChange={(e)=> setOTP(e.target.value)} disabled = {!message2} class="form-control mb-3" name="userEmail" type="email" placeholder="OTP" required/>
+                                </div>
+                                
+                                <div class="control text-center mt-3">
+                                    <button onClick = {message2? verifyEmail:updateEmail}class="btn btn-primary rounded-pill px-3 ">{!message2? "Send OTP":"verifyEmail"}</button>
+                                </div>
+                                <div className="control mb-5">
                                  {
                                     error2?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error2}</label>:
-                                    message2?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}>{message2} <a href='/login'> Please Click Here to Login</a></label>:
+                                    message2?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}>{message2} </label>:
                               
-                               <></>
+                                    <></>
                                
                                 }
                                 </div>
-                                </Form>
+                            </Form>
+                        </div>
+                    
+                        <div class="form-container9">
+                            
+                            <h4 class=" mb-2 pb-3">CHANGE PASSWORD</h4>
 
+                            <Form onSubmit={(submitHandler)}>
+                                <div class="control">
+                                    <input onChange={(e)=> setPasswordCurrent(e.target.value)} class="form-control mb-3" name="CurrentPsw" type="password" placeholder="Current Password" required/>
+                                </div>
 
+                                <div class="control">
+                                    <input onChange={(e)=> setPassword(e.target.value)} class="form-control mb-3" name="NewPsw" type="password" placeholder="New Password" required/>
+                                </div>
 
-                                <Form onSubmit={submitHandler}>
-                                    <div class="control">
-                                        <input onChange={(e)=> setPasswordCurrent(e.target.value)} class = "form-control mb-4" name="CurrentPsw" type="password" placeholder="Current Password" required/>
-                                    </div>
-    
-                                    <div class="control">
-                                        <input onChange={(e)=> setPassword(e.target.value)} class ="form-control mb-4" name="NewPsw" type="password" placeholder="New Password" required/>
-                                    </div>
-
-                                    <div class="control mb-5">
-                                    <input onChange={(e)=> setPasswordConfirm(e.target.value)} class ="form-control mb-4"name ="ConfirmNewPsw" type="password" placeholder="Confirm New Password" required/>
-                                    </div>
-                                    
-                                    <div class="control text-center mt-4">
-                                        <button class="btn btn-primary rounded-pill px-5 ">Update Password</button>
-                                    </div>
-
-                                    <div className="control mb-5">
+                                <div class="control mb-3">
+                                    <input onChange={(e)=> setPasswordConfirm(e.target.value)} class="form-control mb-3" name="ConfirmNewPsw" type="password" placeholder="Confirm New Password" required/>
+                                </div>
+                                
+                                <div class="control text-center mt-3">
+                                    <button class="btn btn-primary rounded-pill px-3 ">SAVE PASSWORD</button>
+                                </div>
+                                <div className="control mb-5">
                                  {
                                     error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error}</label>:
-                                    message?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}>{message} <a href='/login'> Please Click Here to Login</a></label>:
+                                    message?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}>{message} </label>:
                               
-                               <></>
+                                    <></>
                                
                                 }
                                 </div>
-                                </Form>
-                            </div>
-                    </div>
+                            </Form>
+                        </div>
                 </div>
-            
-        <script src="js/bootstrap.bundle.min.js"></script>
-    </body>
+            </div>
+        </div>
+    </div>
+   
+
+
+    
+   
+</body>
+
   )
 }
 
