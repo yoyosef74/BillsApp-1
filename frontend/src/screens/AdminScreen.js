@@ -1,15 +1,34 @@
 import React, {useState, useEffect} from 'react'
 import {
+    useNavigate,
   useParams
 } from "react-router-dom";
 import axios from 'axios'
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const AdminScreen = () => {
-   
+   const navigate = useNavigate();
     let {token,userType,id} = useParams();
     const [error,setError] = useState('');
     const [users,setUsers] = useState('');
+    const logout = async(e) => {
+         e.preventDefault();
+        try {
+         const config = {
+        // withCredentials: true,
+         headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+         },
+        }
+        const url = "http://localhost:8000/api/v1/users/logout";
+        await axios.post(url, config);
+    }
+         catch(err){
+            console.log(err);
+         }
+    navigate('/login')
+        
+    }
     // let hrefUrl = userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`;
     useEffect(()=>{
          const getUsersList = async() => {
@@ -47,7 +66,7 @@ const AdminScreen = () => {
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" onClick={logout} className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>

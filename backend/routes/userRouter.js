@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {signup,login,protect2, forgotPassword, resetPassword, updatePassword, protect, sendActivationEmail, activateAccount, restrictToAdmin,restrictToFinance, restrictToAdminAndFinance, setDefaultCredentialsForEnrolledUsers, updateEmailAfterFirstLogin, verifyEmailAfterFirstLogin} = require('../controllers/authController');
+const {signup,login,protect2, forgotPassword, resetPassword, updatePassword, protect, sendActivationEmail, activateAccount, restrictToAdmin,restrictToFinance, restrictToAdminAndFinance, setDefaultCredentialsForEnrolledUsers, updateEmailAfterFirstLogin, verifyEmailAfterFirstLogin, logout} = require('../controllers/authController');
 const {getAllUsers, getAllUnactiveUsers, getAllNormalUsers, getUser,getAllNormalActiveUsers, getMe, deleteUser} = require('../controllers/userController')
 router.post('/signup',signup);
 router.get('/:id/me',
@@ -13,7 +13,7 @@ router.post('/verifyEmail', protect,verifyEmailAfterFirstLogin)
 router.get('/me2',
     protect2,
     getMe)
-
+router.post('/logout',logout)
 //Auth
 router.post('/login',login);
 router.post('/forgotPassword', forgotPassword);

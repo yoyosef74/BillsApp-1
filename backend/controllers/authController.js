@@ -318,6 +318,13 @@ exports.verifyEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
         message: 'Email Verified, You can now use our service'
     })
 });
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ status: 'success' });
+};
 
 // exports.isVerifiedAndActive = catchAsync(async(req,res,next)=>{
 //     if(!req.user.emailVerified || !req.user.active)

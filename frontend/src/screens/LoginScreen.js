@@ -15,7 +15,7 @@ const LoginScreen = () => {
         e.preventDefault();
         try {
          const config = {
-        withCredentials: true,
+        // withCredentials: true,
          headers: {
         'Content-Type': 'application/json; charset=UTF-8'
       },
