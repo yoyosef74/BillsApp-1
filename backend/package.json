@@ -30,5 +30,9 @@
     "xss-clean": "^0.1.1"
   },
   "author": "Abdullah",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "html-to-text": "^8.2.1",
+    "pug": "^3.0.2"
+  }
 }

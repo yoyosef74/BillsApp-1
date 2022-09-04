@@ -13,6 +13,7 @@ import AdminScreen from './screens/AdminScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import UserReportsScreen from './screens/UserReportsScreen';
 import ActivationScreen from './screens/ActivationScreen';
+import UpdatePasswordScreen from './screens/UpdatePasswordScreen';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 function App() {
@@ -31,6 +32,7 @@ function App() {
          <Route path='/profile/:adminId/:token/:userId' element={<UserProfileScreen />}></Route>
           <Route path='/reports/:financialId/:token/:userId/' element={<UserReportsScreen />}></Route>
           <Route path='/activate/:token/:id' element={<ActivationScreen/>}></Route>
+          <Route  path='/updateProfile' element={<UpdatePasswordScreen/>}> </Route>
       </Routes>
     </Router>
     </>

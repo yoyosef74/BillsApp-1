@@ -729,3 +729,68 @@ input[type="file"] {
         margin-left: 100px;
     }
 }
+
+
+.form-container9
+{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 61%;
+    padding: 40px 30px 10px 30px;
+    background-color: white;
+    box-shadow: 10px 10px 60px rgb(16, 15, 15);
+    border-radius: 12px;
+}
+.form-container9 .table
+{
+  font-size: 17px;
+}
+
+.form-container9 img
+{
+  width: 100px;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+
+@media screen and (max-width: 992px)
+{
+  .form-container9
+{
+  position: absolute;
+  left: 50%;
+}
+}
+
+@media screen and (max-width: 760px)
+{
+  .form-container9
+  {
+    width: 450px;
+    height: 440px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    left: 50%;
+  }
+
+  .form-control
+  {
+    width: 370px;
+    margin-left: 35px;
+  }
+}
+
+@media screen and (max-width: 1540px)
+{
+  #wrapper.toggled .form-container9 
+  {
+    width: 61%;
+    position: absolute;
+    left: 49%;
+  }
+}

@@ -75,12 +75,16 @@ const HomeScreen = () => {
                 console.log(data);
             }
             catch(err) {
-                setError(err);
+                setError("An error has occured"); 
+                //console.log(err)
             }
         }
         const onRender = () =>{
+            try{
             getUser()
             getReports();
+        }
+        catch (err){}
         } 
         onRender();
     },[user.billerCode]);

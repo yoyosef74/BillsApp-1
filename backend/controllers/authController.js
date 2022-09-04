@@ -281,9 +281,14 @@ exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
      let OTP = Math.floor(1000+Math.random()*9000);
      let OTPExpirationTime = Date.now() + 5*1000; //miliseconds
      const user = req.user
-     user.email = req.body.email;
+     const flag = await User.findOne({email: req.body.email});
+     if (flag){
+        return  next(new AppError('Email already exists',500));
+     }
+     user.newemail = req.body.email;
      user.OTP = OTP;
      user.OTPExpirationTime =OTPExpirationTime
+     user.emailVerified= false,
      await user.save({validateBeforeSave:false});
 
      //send OTP to email
@@ -295,6 +300,8 @@ exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
     //     subject: 'Verify Email, (valid for 5 minutes)',
     //     message: `Your OTP code is ${OTP}`
     // })
+    //console.log(HIiiiiiiiiiiiiiiiiiiii);
+    
     res.status(200).json({
         status: 'success',
         message: 'OTP sent to email'
@@ -303,6 +310,7 @@ exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
         user.OTP = undefined,
         user.OTPExpirationTime = undefined
         await user.save({validateBeforeSave: false});
+        console.log(err);
         return  next(new AppError('Error sending email, try again later',500));
     }
 });
@@ -312,19 +320,13 @@ exports.verifyEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
      if(req.body.OTP*1 !== user.OTP*1 || Date.now()>user.OTPExpirationTime)
         return next(new AppError('Invlid OTP',400))
     user.emailVerified= true,
+    user.email = user.newemail;
      await user.save({validateBeforeSave:false});
      res.status(200).json({
         status: 'success',
         message: 'Email Verified, You can now use our service'
     })
 });
-exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
-  });
-  res.status(200).json({ status: 'success' });
-};
 
 // exports.isVerifiedAndActive = catchAsync(async(req,res,next)=>{
 //     if(!req.user.emailVerified || !req.user.active)
