@@ -60,7 +60,7 @@ const ActivationScreen = () => {
     </div>
 
     <div className="control text-center mt-4">
-                                   {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error} </label>:<label></label>}
+                                   {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>An Error Has occured please try again later </label>:<label></label>}
                                 </div>
     <div className="activation__footer my-3">
       Thank you. Sincerely,

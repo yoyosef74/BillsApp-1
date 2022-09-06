@@ -1,17 +1,35 @@
 import React, {useState, useEffect} from 'react'
 import {
+    useNavigate,
   useParams
 } from "react-router-dom";
 import axios from 'axios'
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const UserProfileScreen = () => {
+    const navigate = useNavigate();
     let {token,userId,id} = useParams();
     const [error,setError] = useState('');
     const [user,setUser] = useState('');
     const [emailError,setEmailError] = useState('');
     const [message,setMessage] = useState('');
-
+     const logout = async(e) => {
+         e.preventDefault();
+        try {
+         const config = {
+        // withCredentials: true,
+         headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+         },
+        }
+        const url = "http://localhost:8000/api/v1/users/logout";
+        await axios.post(url, config);
+    }
+         catch(err){
+            console.log(err);
+         }
+    navigate('/login')
+     }
     //Activation Email
     const sendActivationEmail = async(e) => {
         try{
@@ -44,7 +62,7 @@ const UserProfileScreen = () => {
             setUser(data.data.user)
         }
         catch(err) {
-            setError(err)
+            setError("Error Fetching User")
         }}
         getUsersList();
     },[])
@@ -70,7 +88,7 @@ const UserProfileScreen = () => {
                         <i className="fa fa-arrow-left me-2"></i> User Requests
                     </a> */}
 
-                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" onClick={logout} className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>
@@ -130,10 +148,13 @@ const UserProfileScreen = () => {
                                 }
                                 <div className="control text-center mt-4">
                                     <button className="btn btn-primary rounded-pill px-5 " onClick={sendActivationEmail}>Send Activation Email</button>
+                                    {error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error}</label>:<></>}
                                 </div>
                                 </div>
+                                
                             </div>
                     </div>
+                    
                 </div>
             </div>
         </div>}

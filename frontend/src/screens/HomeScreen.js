@@ -1,16 +1,36 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {
+    useNavigate,
   useParams
 } from "react-router-dom";
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 const HomeScreen = () => {
+    const navigate = useNavigate();
   let {id,token} = useParams();
   const [xlsx,setXlsx] = useState('');
    const [user,setUser] = useState('');
   const [error,setError] = useState('');
   const [message,setMessage] = useState('');
   const[reports,setReports] = useState('');
+
+  const logout = async(e) => {
+         e.preventDefault();
+        try {
+         const config = {
+        // withCredentials: true,
+         headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+         },
+        }
+        const url = "http://localhost:8000/api/v1/users/logout";
+        await axios.post(url, config);
+    }
+         catch(err){
+            console.log(err);
+         }
+    navigate('/login')
+    }
   
   const onFileChange = event => {
     setXlsx(event.target.files[0])
@@ -103,8 +123,12 @@ const HomeScreen = () => {
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="/login" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
-                        <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
+                    <a href="/updateProfile" className="list-group-item list-group-item-action bg-transparent second-text fw-bold fs-5">
+                        <i className="fa fa-home me-2 mt-4"></i>Update Profile
+                    </a>
+
+                    <a href="/login" onClick={logout} className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                        <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout   
                     </a>
                 </div>
             </div>
@@ -118,7 +142,7 @@ const HomeScreen = () => {
                         {xlsx? <label for="file" className="rounded-pill">{xlsx.name} <i className="fa fa-upload ms-3"></i> </label> 
                         : <label for="file" className="rounded-pill">Choose file here <i className="fa fa-upload ms-3"></i> </label> }
                     {
-                                    error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large',background:'transparent'}}>{error}</label>:
+                                    error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large',background:'transparent'}}>Error Occurred while uploading your file</label>:
                                     message?<label className='m-auto text-center' variant="success" style={{color: 'orange',fontSize:'large',background:'transparent'}}>{message}</label>:
                                     <button  className='m-auto text-center btnupl' variant="success" style={{fontSize:'x-large', background:'fff'}}
                                         onClick={onFileUpload}> 
@@ -177,8 +201,8 @@ const HomeScreen = () => {
                                                     <td>{el.status}</td>
                                                     <td>{el.billNumber}</td>
                                                 </tr>
-                                })):<></>
-                                }
+                                })):error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Error Occurred while fetching the Users,Please try again later</label>
+                                :<></>}
                                     </tbody>
                                 </table>
                             </div>

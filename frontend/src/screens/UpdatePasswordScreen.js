@@ -32,7 +32,7 @@ const UpdatePasswordScreen = () => {
      }
         catch(err) {
             console.log(err)
-            setError(err.message)
+            setError(err.response.data.message)
         }
     }
 
@@ -51,7 +51,7 @@ const UpdatePasswordScreen = () => {
      }
         catch(err) {
             console.log(err)
-            setError2(err.message)
+            setError2("Error Sending OTP,Please try again later or check the provided email if it is valid")
         }
     }
     const verifyEmail = async(e) => {
@@ -69,7 +69,7 @@ const UpdatePasswordScreen = () => {
      }
         catch(err) {
             console.log(err)
-            setError2(err.message)
+            setError2("Invalid OTP, Please try again or refresh and send another OTP")
         }
     }
 

@@ -107,8 +107,8 @@ const AdminScreen = () => {
                                                     <td><a href={ userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`}
                                                     > view</a></td>
                                                 </tr>
-                                })):<></>
-                                }
+                                })):error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Error Occurred while fetching the Users,Please try again later</label>
+                                :<></>}
                                     </tbody>
                                 </table>
                             </div>

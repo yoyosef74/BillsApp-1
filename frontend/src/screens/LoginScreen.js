@@ -70,7 +70,6 @@ const LoginScreen = () => {
                                     <input onChange={(e)=> setPassword(e.target.value)} className="form-control mb-4" name="Psw" type="password" placeholder="Password" required />
                                 </div>
 
-                                <span><input type="checkbox" /> Remember me</span>
 
                                 <div className="link mt-4">
                                     <a href="/forgotPassword">Forgot password ?</a>
@@ -85,7 +84,7 @@ const LoginScreen = () => {
                                 </div>
 
                                 <div className="control text-center mt-4">
-                                   {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Invalid Credentials! </label>:<label></label>}
+                                   {error!==''?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Invalid Email or Password! </label>:<label></label>}
                                 </div>                           
                             </Form>
                         </div>

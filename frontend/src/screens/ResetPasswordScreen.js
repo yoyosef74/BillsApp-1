@@ -27,7 +27,7 @@ const ResetPasswordScreen = () => {
      }
         catch(err) {
             console.log(err)
-            setError(err.message)
+            setError(err.response.data.message)
         }
     }
   return (
@@ -51,7 +51,6 @@ const ResetPasswordScreen = () => {
                         <div class="form-container col-lg-6">
 
                             <h1 class="text-center mb-4 pb-4">Create New Password</h1>
-
                               <Form onSubmit={submitHandler}>
                                 <div class="control">
                                     <input onChange={(e)=> setPassword(e.target.value)} class="form-control mb-4" name="CreatePsw" type="password" placeholder="Create Password" required />
@@ -69,8 +68,7 @@ const ResetPasswordScreen = () => {
                                     error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error}</label>:
                                     message?<label className='m-auto text-center' variant="success" style={{color: 'green',fontSize:'large'}}>{message} <a href='/login'> Please Click Here to Login</a></label>:
                               
-                                    <p>we are going to send you message to this Email to make you create
-                                       a new password, it will take seconds only</p>
+                                <></>
                                
                                 }
                                 </div>

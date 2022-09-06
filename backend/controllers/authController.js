@@ -275,9 +275,11 @@ exports.setDefaultCredentialsForEnrolledUsers = catchAsync(async(req,res,next)=>
             message: "success"
         })
 })
-
+const validator = require('validator');
 exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
     //getUser and set OTP/OTP Expiration Time
+    if(!validator.isEmail)
+        return next(new AppError("Invalid Email"))
      let OTP = Math.floor(1000+Math.random()*9000);
      let OTPExpirationTime = Date.now() + 5*1000; //miliseconds
      const user = req.user

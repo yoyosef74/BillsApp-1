@@ -46,7 +46,6 @@ const ForgetPasswordScreen = () => {
                         <div className="form-container col-lg-6">
 
                             <h1 className="text-center mb-4 pb-4">Forgot Password</h1>
-
                             <Form onSubmit={submitHandler}>
                                 <div className="control">
                                     <input onChange={(e)=> setEmail(e.target.value)} className= "form-control mt-4 mb-2" name="Email" type="email" placeholder="Email" required />

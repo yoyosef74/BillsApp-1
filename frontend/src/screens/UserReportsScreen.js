@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 const firstImage = require('./imgs/Image 2022-08-21 at 11.51.16 AM.jpeg')
 
 const UserReportsScreen = () => {
+    const navigate = useNavigate();
     const [user,setUser] = useState('');
     let {userId,token,id} = useParams();
     const [error,setError] = useState('');
     const[reports,setReports] = useState('');
+    const logout = async(e) => {
+         e.preventDefault();
+        try {
+         const config = {
+        // withCredentials: true,
+         headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+         },
+        }
+        const url = "http://localhost:8000/api/v1/users/logout";
+        await axios.post(url, config);
+    }
+         catch(err){
+            console.log(err);
+         }
+    navigate('/login')
+    }
+
     useEffect(()=>{
         const getUser = async() => {
             try {
@@ -21,7 +40,7 @@ const UserReportsScreen = () => {
                 setUser(data.data.user);
             }
             catch(err) {
-                setError(err)
+                setError("Error Occured While Fetching Your Data")
             }}
         const getReports = async() => {
             try{
@@ -44,7 +63,7 @@ const UserReportsScreen = () => {
                 setReports(data.data)
             }
             catch(err) {
-                setError(err);
+                setError("Error Occured While Fetching Your Data");
             }
         }
         const onRender = () =>{
@@ -68,7 +87,7 @@ const UserReportsScreen = () => {
                         <i className="fa fa-home me-2 mt-4"></i>Home
                     </a>
 
-                    <a href="/" className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
+                    <a href="/login" onClick={logout} className="list-group-item list-group-item-action bg-transparent text-danger fw-bold fs-5">
                         <i className="fas fa-power-off me-2 mt-5 pt-5 fs-5"></i>Logout
                     </a>
                 </div>
@@ -146,10 +165,13 @@ const UserReportsScreen = () => {
                                                     <td>{el.status}</td>
                                                     <td>{el.billNumber}</td>
                                                 </tr>
-                                })):<></>
+                                }))
+                                :<></>
                                 }
                                     </tbody>
                                 </table>
+                                
+                                {error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>{error}</label>:<></>}
                             </div> 
                         </div>
 
