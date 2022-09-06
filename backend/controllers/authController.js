@@ -1,13 +1,11 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-const sendEmail = require('../utils/email');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync')
 const {promisify} = require('util');
 const crypto= require('crypto')
 const Email = require('../utils/email')
-
-
+const validator = require('validator');
 
 const signToken = id => {
     return jwt.sign({_id:id},process.env.JWT_SECRET,{
@@ -275,11 +273,11 @@ exports.setDefaultCredentialsForEnrolledUsers = catchAsync(async(req,res,next)=>
             message: "success"
         })
 })
-const validator = require('validator');
+
 exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
     //getUser and set OTP/OTP Expiration Time
-    if(!validator.isEmail)
-        return next(new AppError("Invalid Email"))
+    if(!validator.isEmail(req.body.email.replaceAll(" ","")))
+        return next(new AppError("Invalid Email",400))
      let OTP = Math.floor(1000+Math.random()*9000);
      let OTPExpirationTime = Date.now() + 5*1000; //miliseconds
      const user = req.user
@@ -296,7 +294,7 @@ exports.updateEmailAfterFirstLogin = catchAsync(async(req,res,next)=>{
      //send OTP to email
      try{
 
-        await new Email(user,OTP).sendOTP()
+        await new Email(user,OTP).sendOTP(user)
     // await sendEmail({
     //     email:user.email,
     //     subject: 'Verify Email, (valid for 5 minutes)',

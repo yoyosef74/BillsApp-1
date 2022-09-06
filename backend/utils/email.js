@@ -40,7 +40,7 @@ module.exports = class Email {
       url: this.url,
       subject
     });
-
+    console.log(this.to)
     // 2) Define email options
     const mailOptions = {
       from: this.from,
@@ -55,11 +55,13 @@ module.exports = class Email {
   }
 
   async sendWelcome() {
+    
     await this.send('welcome', 'Welcome to the AMAN EPAYMENTS!');
     console.log('email sent!')
   }
 
-  async sendOTP() {
+  async sendOTP(user) {
+    this.to = user.newemail || user.email
     await this.send('OTP','OTP From AMAN',)
   }
 
