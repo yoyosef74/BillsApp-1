@@ -20,7 +20,7 @@ const AdminScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
          },
         }
-        const url = "http://localhost:8000/api/v1/users/logout";
+        const url = "/api/v1/users/logout";
         await axios.post(url, config);
     }
          catch(err){
@@ -29,20 +29,18 @@ const AdminScreen = () => {
     navigate('/login')
         
     }
-    // let hrefUrl = userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`;
+    // let hrefUrl = userType==='admin'?`/profile/${id}/${token}/${el._id}`:`/reports/${id}/${token}/${el._id}`;
     useEffect(()=>{
          const getUsersList = async() => {
          try {
              const config = {
-                // withCredentials: true,
                 headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 // 'Authorization': `Bearer ${token}`
                 }
              }
             const str = userType==='admin'?'getAllNormalUsers':'finance/getAllNormalActiveUsers' 
-            // console.log(str)
-            const {data} = await axios.get(`http://localhost:8000/api/v1/users/${str}`,config)
+            const {data} = await axios.get(`/api/v1/users/${str}`,config)
             setUsers(data.data.users)
             console.log(data)
         }
@@ -104,7 +102,7 @@ const AdminScreen = () => {
                                                     <td>{el.name}</td>
                                                     <td>{el.email}</td>
                                                    {userType==='admin'? <td>{el.active?"Verified":el.activationToken?"Verification Email Sent":"Not yet Verified"}</td>:<>{el.billerCode}</>}
-                                                    <td><a href={ userType==='admin'?`http://localhost:3000/profile/${id}/${token}/${el._id}`:`http://localhost:3000/reports/${id}/${token}/${el._id}`}
+                                                    <td><a href={ userType==='admin'?`/profile/${id}/${token}/${el._id}`:`/reports/${id}/${token}/${el._id}`}
                                                     > view</a></td>
                                                 </tr>
                                 })):error?<label className='m-auto text-center' variant="danger" style={{color: 'red',fontSize:'large'}}>Error Occurred while fetching the Users,Please try again later</label>

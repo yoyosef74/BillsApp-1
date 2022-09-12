@@ -20,7 +20,7 @@ const ResetPasswordScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = `http://localhost:8000/api/v1/users/resetPassword/${token}`;
+        const url = `/api/v1/users/resetPassword/${token}`;
         // const {data} = 
         await axios.patch(url, {password, passwordConfirm}, config);
         setMessage('Password Successfuly Updated');

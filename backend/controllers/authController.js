@@ -44,9 +44,12 @@ exports.sendActivationEmail = catchAsync(async(req,res,next) => {
         return next(new AppError('User not found, Incorrect Email',400))
     const activateToken = newUser.createActivationToken();
     await newUser.save({validateBeforeSave: false}); //we modified the doc but didnt update it in DB SO we save it
-
+    let activateURL;
     //3 send it to users email
-    const activateURL = `${req.protocol}://localhost:3000/activate/${activateToken}/${newUser._id}` // protocol https or http,
+    if(process.env.NODE_ENV === 'production')
+     activateURL = `${req.get('origin')}activate/${activateToken}/${newUser._id}` // protocol https or http,
+    else
+      activateURL = `http://localhost:3000/activate/${activateToken}/${newUser._id}` 
     const message = `Congratulations, we have revised your data and it appears to be genuine. Please click on this link ${activateURL} to activate your account`
     try{
       await new Email(newUser,activateURL).sendWelcome()
@@ -131,9 +134,12 @@ exports.forgotPassword = catchAsync(async(req,res,next) => {
     //2 Generate random reset token
     const resetToken = user.createPasswordResetToken()
     await user.save({validateBeforeSave: false}); //we modified the doc but didnt update it in DB SO we save it
-
+    let resetURL;
     //3 send it to users email
-    const resetURL = `${req.protocol}://localhost:3000/resetPassword/${resetToken}` // protocol https or http,
+    if(process.env.NODE_ENV === 'production')
+    resetURL = `${req.get('origin')}/resetPassword/${resetToken}` // protocol https or http,
+    else
+    resetURL = `http://localhost:3000/resetPassword/${resetToken}`
     // const message = `Forgot Password, submit a patch request with ur new password and passwordConfirm to ${resetURL}. If this is not you, you can ignore this safely`
     try{
         await new Email(user,resetURL).sendPasswordReset()

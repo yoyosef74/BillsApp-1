@@ -23,7 +23,7 @@ const HomeScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
          },
         }
-        const url = "http://localhost:8000/api/v1/users/logout";
+        const url = "/api/v1/users/logout";
         await axios.post(url, config);
     }
          catch(err){
@@ -39,7 +39,7 @@ const HomeScreen = () => {
     try{
     const formData = new FormData();
     formData.append("file",xlsx,xlsx.name);
-    const serviceId = user.serviceId || 905079;
+    const serviceId = 905079;
     formData.append("serviceId",serviceId);
     
     //VPN
@@ -66,7 +66,7 @@ const HomeScreen = () => {
                     'Authorization': `Bearer ${token}`
                     }
                  }
-                const {data} = await axios.get(`http://localhost:8000/api/v1/users/${id}/me`,config)
+                const {data} = await axios.get(`/api/v1/users/${id}/me`,config)
                 setUser(data.data.user)
             }
             catch(err) {

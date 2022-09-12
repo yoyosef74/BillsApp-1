@@ -25,7 +25,7 @@ const UpdatePasswordScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/updatePassword";
+        const url = "/api/v1/users/updatePassword";
         // const {data} = 
         await axios.patch(url, {passwordCurrent,password,passwordConfirm}, config);
         setMessage('Password updated successfully!')
@@ -44,7 +44,7 @@ const UpdatePasswordScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/updateEmail";
+        const url = "/api/v1/users/updateEmail";
         // const {data} = 
         await axios.patch(url, {email}, config);
         setMessage2('Email OTP is sent!')
@@ -62,7 +62,7 @@ const UpdatePasswordScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/verifyEmail";
+        const url = "/api/v1/users/verifyEmail";
         // const {data} = 
         await axios.patch(url, {OTP}, config);
         setMessage2('Email updated')

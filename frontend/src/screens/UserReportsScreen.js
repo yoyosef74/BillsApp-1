@@ -18,7 +18,7 @@ const UserReportsScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
          },
         }
-        const url = "http://localhost:8000/api/v1/users/logout";
+        const url = "/api/v1/users/logout";
         await axios.post(url, config);
     }
          catch(err){
@@ -36,7 +36,7 @@ const UserReportsScreen = () => {
                     'Authorization': `Bearer ${token}`
                     }
                  }
-                const {data} = await axios.get(`http://localhost:8000/api/v1/users/${userId}`,config)
+                const {data} = await axios.get(`/api/v1/users/${userId}`,config)
                 setUser(data.data.user);
             }
             catch(err) {

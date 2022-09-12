@@ -20,7 +20,7 @@ const LoginScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/login";
+        const url = "/api/v1/users/login";
         const res = await axios.post(url, { email, 'password': password}, config);
         const {data} = res;
         const {token} = data;

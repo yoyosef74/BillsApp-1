@@ -28,7 +28,7 @@ const SignupScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/signup";
+        const url = "/api/v1/users/signup";
         const {data} = await axios.post(url, 
             {
                 'email': email,

@@ -22,7 +22,7 @@ const UserProfileScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
          },
         }
-        const url = "http://localhost:8000/api/v1/users/logout";
+        const url = "/api/v1/users/logout";
         await axios.post(url, config);
     }
          catch(err){
@@ -40,7 +40,7 @@ const UserProfileScreen = () => {
                 'Authorization': `Bearer ${token}`
                 }
              }
-             const url = "http://localhost:8000/api/v1/users/admin/sendActivationEmail";
+             const url = "/api/v1/users/admin/sendActivationEmail";
              await axios.post(url, {email: user.email}, config);
              setMessage('Email Sent')
         }
@@ -58,7 +58,7 @@ const UserProfileScreen = () => {
                 'Authorization': `Bearer ${token}`
                 }
              }
-            const {data} = await axios.get(`http://localhost:8000/api/v1/users/${userId}`,config)
+            const {data} = await axios.get(`/api/v1/users/${userId}`,config)
             setUser(data.data.user)
         }
         catch(err) {

@@ -15,7 +15,7 @@ const ForgetPasswordScreen = () => {
         'Content-Type': 'application/json; charset=UTF-8'
       },
     }
-        const url = "http://localhost:8000/api/v1/users/forgotPassword";
+        const url = "/api/v1/users/forgotPassword";
         // const {data} = 
         await axios.post(url, { email}, config);
         setMessage('Email Sent')
