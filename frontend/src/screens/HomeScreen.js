@@ -47,7 +47,8 @@ const HomeScreen = () => {
         auth: {
             username: 'basma',
             password: 'basma'
-        }
+        },
+        withCredentials: false
     });
     console.log(res)
     setMessage('Uploaded Successfuly')
@@ -85,7 +86,8 @@ const HomeScreen = () => {
                     serviceId: 905079
                 },
                 {
-                    auth:{
+                    withCredentials: false
+                    ,auth:{
                         username: 'basma',
                         password: 'basma'
                     }

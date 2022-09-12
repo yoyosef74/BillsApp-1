@@ -23,7 +23,9 @@ const ActivationScreen = () => {
           const url = `/api/v1/users/activate/${token}`;
           await axios.post(url,config);
         // Check if there is a user
-        // const res = await axios.post(`http://10.140.173.14:9096/billerConfig`,user)
+        const res = await axios.post(`http://10.140.173.14:9096/billerConfig`,user,{
+          withCredentials: false
+        })
         navigate('/login')
     }
     catch(err) {

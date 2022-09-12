@@ -11,7 +11,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000','http://10.140.173.14:9096'],
     credentials: true,
     optionsSuccessStatus: 200 // For legacy browser support
 }

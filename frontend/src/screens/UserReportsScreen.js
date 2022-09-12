@@ -56,7 +56,8 @@ const UserReportsScreen = () => {
                     auth:{
                         username: 'basma',
                         password: 'basma'
-                    }
+                    },
+                    withCredentials: false
                 }
                 )
                 console.log(1)
